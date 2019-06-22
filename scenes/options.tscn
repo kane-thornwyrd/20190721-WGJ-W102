@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://assets/BackButton.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/transition.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+func _ready() -> void:
+  $transition_layer.in_trans()
+  yield($transition_layer, \"animation_finished\")
+"
+
+[node name="options" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="back" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="back"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="ui" type="CanvasLayer" parent="."]
+
+[node name="Button" parent="ui" instance=ExtResource( 1 )]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -250.0
+margin_top = -44.0
+margin_right = 250.0
+margin_bottom = 0.0
+mouse_default_cursor_shape = 2
+
+[node name="transition_layer" parent="." instance=ExtResource( 2 )]

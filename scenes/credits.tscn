@@ -1,0 +1,79 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/mono.tres" type="Theme" id=1]
+[ext_resource path="res://assets/BackButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/transition.tscn" type="PackedScene" id=3]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+func _ready() -> void:
+  $transition_layer.in_trans()
+  yield($transition_layer, \"animation_finished\")
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends RichTextLabel
+
+var credits:String
+
+func _init() -> void:
+  var credit_file = File.new()
+  if credit_file.open(\"res://credits.txt\", File.READ) != 0 :
+    print(\"Error opening file\")
+    return
+  credits = credit_file.get_as_text()
+  self.bbcode_text = credits
+
+
+"
+
+[node name="credits_ui" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+
+[node name="back" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="back"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="credits_layer" type="CanvasLayer" parent="."]
+
+[node name="credits" type="CenterContainer" parent="credits_layer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 40.0
+margin_top = 40.0
+margin_right = -40.0
+margin_bottom = -40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="credits_layer/credits"]
+margin_left = 172.0
+margin_right = 772.0
+margin_bottom = 544.0
+
+[node name="Label" type="RichTextLabel" parent="credits_layer/credits/VBoxContainer"]
+margin_right = 600.0
+margin_bottom = 500.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 600, 500 )
+focus_mode = 2
+theme = ExtResource( 1 )
+bbcode_enabled = true
+selection_enabled = true
+script = SubResource( 2 )
+
+[node name="Button" parent="credits_layer/credits/VBoxContainer" instance=ExtResource( 2 )]
+margin_top = 500.0
+margin_right = 600.0
+margin_bottom = 544.0
+grow_horizontal = 2
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+shortcut_in_tooltip = false
+transition_path = NodePath("../../../../transition_layer")
+
+[node name="transition_layer" parent="." instance=ExtResource( 3 )]

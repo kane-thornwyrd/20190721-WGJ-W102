@@ -1,0 +1,82 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://assets/fx/shaders/cyber_brain.shader" type="Shader" id=1]
+[ext_resource path="res://assets/fonts/gravity8_40_dynamicfont.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/fx/shaders/pixelation.shader" type="Shader" id=3]
+[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=4]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+export var is_loading:bool = true
+
+var new_scene_ready:bool = false
+
+func _ready() -> void:
+  $transition_layer.in_trans()
+  yield($transition_layer, \"animation_finished\")
+  goto_next_scene()
+
+func next_scene() -> void:
+  if not is_loading and not new_scene_ready:
+    new_scene_ready = true
+    scene_reg.transition_to(\"main_menu\", $transition_layer)
+
+func goto_next_scene() -> void:
+  if is_loading:
+    yield(self.get_tree().create_timer(0.5), \"timeout\")
+    goto_next_scene()
+  else:
+    next_scene()"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 3 )
+shader_param/pixel_size = 0.004
+shader_param/pixel_ratio = 0.5625
+shader_param/tint = null
+shader_param/mixin = 0.0
+
+[node name="loading_screen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = SubResource( 1 )
+
+[node name="background" type="CanvasLayer" parent="."]
+
+[node name="color_rect2" type="ColorRect" parent="background"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.341176, 0.341176, 0.341176, 1 )
+
+[node name="content" type="CanvasLayer" parent="."]
+
+[node name="center_container" type="CenterContainer" parent="content"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="label" type="Label" parent="content/center_container"]
+margin_left = 815.0
+margin_top = 515.0
+margin_right = 1105.0
+margin_bottom = 565.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
+custom_constants/shadow_offset_x = 4
+custom_constants/shadow_offset_y = 4
+custom_constants/shadow_as_outline = 4
+text = "Loading..."
+
+[node name="pixelation" type="CanvasLayer" parent="."]
+
+[node name="color_rect" type="ColorRect" parent="pixelation"]
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="transition_layer" parent="." instance=ExtResource( 4 )]

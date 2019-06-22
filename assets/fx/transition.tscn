@@ -1,0 +1,107 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://assets/fx/fade.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "tool
+extends CanvasLayer
+
+export var anim_player_path:NodePath
+export var color_rect_path:NodePath
+
+onready var anim_player = get_node(anim_player_path)
+onready var color_rect = get_node(color_rect_path)
+signal animation_finished
+
+func _ready() -> void:
+  color_rect.visible = false
+
+func in_trans(action:FuncRef = null) -> void:
+  color_rect.visible = true
+  anim_player.play(\"in\")
+  yield(anim_player,\"animation_finished\")
+  emit_signal(\"animation_finished\")
+  color_rect.visible = false
+  if action: action.call_func();
+
+func out_trans(action:FuncRef = null) -> void:
+  color_rect.visible = true
+  anim_player.play(\"out\")
+  yield(anim_player,\"animation_finished\")
+  emit_signal(\"animation_finished\")
+  if action: action.call_func();
+
+#func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+"
+
+[sub_resource type="Shader" id=2]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float cutoff : hint_range(0.0, 1.0);
+uniform float smooth_size : hint_range(0.0, 1.0);
+uniform sampler2D mask : hint_albedo;
+
+uniform vec4 color : hint_color;
+
+void fragment()
+{
+	float value = texture(mask, UV).r;
+	float alpha = smoothstep(cutoff, cutoff + smooth_size, value * (1.0 - smooth_size) + smooth_size);
+	COLOR = vec4(color.rgb, alpha);
+}"
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = SubResource( 2 )
+shader_param/cutoff = 0.0
+shader_param/smooth_size = 0.001
+shader_param/color = Color( 1, 1, 1, 1 )
+shader_param/mask = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("color_rect:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.0 ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("color_rect:material:shader_param/cutoff")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 0.0 ]
+}
+
+[node name="transition_layer" type="CanvasLayer"]
+script = SubResource( 1 )
+anim_player_path = NodePath("anim_player")
+color_rect_path = NodePath("color_rect")
+
+[node name="color_rect" type="ColorRect" parent="."]
+visible = false
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="anim_player" type="AnimationPlayer" parent="."]
+anims/in = SubResource( 4 )
+anims/out = SubResource( 5 )

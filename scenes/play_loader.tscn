@@ -1,0 +1,147 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://script/play_loader.gd" type="Script" id=1]
+[ext_resource path="res://assets/insanity_theme.tres" type="Theme" id=2]
+[ext_resource path="res://assets/medical.tres" type="Theme" id=3]
+[ext_resource path="res://assets/music/DAS OMIKron - forever sleeping (zero IV)DARK AMBIENTMUSIC.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/transition.tscn" type="PackedScene" id=5]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Control
+
+onready var state_paused:bool = self.get_tree().paused
+export var first_button_path:NodePath
+
+func _input(event: InputEvent) -> void:
+  if event.is_action_pressed(\"ui_cancel\"):
+    toggle_pause()
+
+func toggle_pause() -> void:
+  state_paused = not self.get_tree().paused
+  self.get_tree().paused = state_paused
+  self.visible = state_paused
+  if state_paused: self.get_node(first_button_path).grab_focus();
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Button
+
+export var modal_path:NodePath
+
+onready var modal:Control = self.get_node(modal_path)
+
+func _ready() -> void:
+# warning-ignore:return_value_discarded
+  self.connect(\"pressed\", self, \"_unpause\")
+
+func _unpause() -> void:
+  modal.toggle_pause()"
+
+[sub_resource type="GDScript" id=3]
+script/source = "extends Button
+
+export var transition_path:NodePath
+export var modal_path:NodePath
+
+onready var transitioner:CanvasLayer = self.get_node(transition_path)
+onready var modal:Control = self.get_node(modal_path)
+
+func _ready() -> void:
+# warning-ignore:return_value_discarded
+  self.connect(\"pressed\", self, \"_go_main_menu\")
+
+func _go_main_menu() -> void:
+  modal.toggle_pause()
+  REG.transition_to(\"main_menu\", transitioner)"
+
+[node name="play_loader" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="level" type="CanvasLayer" parent="."]
+
+[node name="level_container" type="CenterContainer" parent="level"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+mouse_default_cursor_shape = 2
+
+[node name="pause_menu" type="CanvasLayer" parent="."]
+layer = 126
+
+[node name="pause_modal" type="Control" parent="pause_menu"]
+pause_mode = 2
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_default_cursor_shape = 2
+script = SubResource( 1 )
+first_button_path = NodePath("modal_screen/VBoxContainer/VBoxContainer/continue")
+
+[node name="modal_screen" type="ColorRect" parent="pause_menu/pause_modal"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu/pause_modal/modal_screen"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -75.0
+margin_top = -116.5
+margin_right = 79.0
+margin_bottom = 116.5
+alignment = 1
+
+[node name="Label" type="Label" parent="pause_menu/pause_modal/modal_screen/VBoxContainer"]
+margin_right = 154.0
+margin_bottom = 53.0
+theme = ExtResource( 2 )
+text = "PAUSED"
+align = 1
+valign = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause_menu/pause_modal/modal_screen/VBoxContainer"]
+margin_top = 53.0
+margin_right = 154.0
+margin_bottom = 233.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_default_cursor_shape = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+
+[node name="continue" type="Button" parent="pause_menu/pause_modal/modal_screen/VBoxContainer/VBoxContainer"]
+margin_top = 136.0
+margin_right = 154.0
+margin_bottom = 180.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "continue"
+script = SubResource( 2 )
+modal_path = NodePath("../../../..")
+
+[node name="forfeit" type="Button" parent="pause_menu/pause_modal/modal_screen/VBoxContainer/VBoxContainer"]
+margin_top = 92.0
+margin_right = 154.0
+margin_bottom = 136.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "forfeit"
+script = SubResource( 3 )
+transition_path = NodePath("../../../../../../transition_layer")
+modal_path = NodePath("../../../..")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -20.0
+autoplay = true
+
+[node name="transition_layer" parent="." instance=ExtResource( 5 )]

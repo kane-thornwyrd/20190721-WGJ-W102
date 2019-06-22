@@ -8,16 +8,73 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Sprite",
+"class": "Echo",
+"language": "GDScript",
+"path": "res://assets/fx/echo.gd"
+} ]
 _global_script_class_icons={
-
+"Echo": ""
 }
 
 [application]
 
 config/name="20190721 WGJ W102"
+run/main_scene="res://main.tscn"
+boot_splash/bg_color=Color( 0.988235, 0, 0, 1 )
 config/icon="res://icon.png"
+
+[autoload]
+
+room_reg="*res://scripts/globals/room_registery.gd"
+scene_reg="*res://scripts/globals/scene_registery.gd"
+UTILS="*res://scripts/globals/utils.gd"
+
+[display]
+
+window/size/width=1920
+window/size/height=1080
+window/size/resizable=false
+window/size/borderless=true
+window/size/fullscreen=true
+window/size/test_width=1365
+window/size/test_height=768
+window/per_pixel_transparency/allowed=true
+window/per_pixel_transparency/enabled=true
+window/per_pixel_transparency/splash=true
+window/stretch/aspect="keep"
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
+
+[node]
+
+name_casing=2
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+quality/2d/gles2_use_nvidia_rect_flicker_workaround=true
+quality/2d/use_pixel_snap=true
+quality/filters/use_nearest_mipmap_filter=true
+environment/default_environment="res://assets/environments/bloom.tres"
