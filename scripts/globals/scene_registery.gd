@@ -19,7 +19,11 @@ func transition_to(to_scene_name:String, transitionner:CanvasLayer = null) -> vo
     _move()
 
 func _move() -> void:
-  var error:int = self.get_tree().change_scene(self.get_scene(_to_scene_name).resource_path)
-  assert error == 0
+  var scene:PackedScene = self.get_scene(_to_scene_name)
+  if scene == null:
+    print("Tried to navigate to unknown scene \"%s\"" % _to_scene_name)
+    self.get_tree().quit()
+    return
+  assert self.get_tree().change_scene(scene.resource_path) == 0
 
 

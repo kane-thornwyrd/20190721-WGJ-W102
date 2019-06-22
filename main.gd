@@ -2,8 +2,6 @@ extends Control
 
 export var loading_scene:PackedScene
 
-#onready var loading_thread = Thread.new()
-
 var all_loaded:Array = [false,false]
 
 func _ready() -> void:
@@ -25,17 +23,17 @@ func load_data(loading_screen:Node) -> int:
   print_debug(scene_reg._scenes.keys())
   all_loaded[0] = true
 
-  var rooms_dir = Directory.new()
-  rooms_dir.open("res://levels")
-  rooms_dir.list_dir_begin(true, true)
-  var room_file:String = rooms_dir.get_next()
-  while room_file.length() > 0:
-    if room_file.ends_with(".tscn"):
-      var node = load("res://levels/%s" % room_file)
-      var room_name = (room_file as String).replace(".tscn", "")
-      room_reg.add_room(room_name, node)
-    room_file = rooms_dir.get_next()
-  print_debug(room_reg._rooms.keys())
+  var levels_dir = Directory.new()
+  levels_dir.open("res://levels")
+  levels_dir.list_dir_begin(true, true)
+  var level_file:String = levels_dir.get_next()
+  while level_file.length() > 0:
+    if level_file.ends_with(".tscn"):
+      var node = load("res://levels/%s" % level_file)
+      var level_name = (level_file as String).replace(".tscn", "")
+      level_reg.add_level(level_name, node)
+    level_file = levels_dir.get_next()
+  print_debug(level_reg._levels.keys())
   all_loaded[1] = true
 
   _refresh_loading_state(loading_screen)

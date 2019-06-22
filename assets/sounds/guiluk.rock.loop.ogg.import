@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/guiluk.rock.loop.ogg-0f8626dc2d5bbdf389b30cf2e977b484.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/guiluk.rock.loop.ogg"
+dest_files=[ "res://.import/guiluk.rock.loop.ogg-0f8626dc2d5bbdf389b30cf2e977b484.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

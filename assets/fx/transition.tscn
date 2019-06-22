@@ -21,7 +21,6 @@ func in_trans(action:FuncRef = null) -> void:
   anim_player.play(\"in\")
   yield(anim_player,\"animation_finished\")
   emit_signal(\"animation_finished\")
-  color_rect.visible = false
   if action: action.call_func();
 
 func out_trans(action:FuncRef = null) -> void:
@@ -30,8 +29,6 @@ func out_trans(action:FuncRef = null) -> void:
   yield(anim_player,\"animation_finished\")
   emit_signal(\"animation_finished\")
   if action: action.call_func();
-
-#func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
 "
 
 [sub_resource type="Shader" id=2]

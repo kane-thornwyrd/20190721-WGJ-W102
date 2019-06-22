@@ -75,7 +75,7 @@ void fragment() {
 	float v = 0.0;
 	
 	// that looks highly interesting:
-	//v = 1.0 - length(uv) * 1.3;
+	v = 1.0 - length(uv) * 1.3;
 	
 	
 	// a bit of camera movement
@@ -121,7 +121,7 @@ void fragment() {
 	}
 
 	// slight vignetting
-	v *= exp(-0.6 * length(suv)) * 1.2;
+	v *= exp(-0.6 * length(suv)) * 1.1;
 	
 	// use texture channel0 for color? why not.
 	//vec3 cexp = texture(iChannel0, uv * 0.001).xyz * 3.0 + texture(iChannel0, uv * 0.01).xyz;//vec3(1.0, 2.0, 4.0);
@@ -130,7 +130,7 @@ void fragment() {
 	// old blueish color set
 	vec3 cexp = vec3(1.,1., .9) *1.4;
 	
-	vec3 col = vec3(pow(v, cexp.x), pow(v, cexp.y), pow(v, cexp.z)) * 2.0;
+	vec3 col = vec3(pow(v, cexp.x), pow(v, cexp.y), pow(v, cexp.z)) * 1.0;
 	
 	COLOR = vec4(col, 1.0);
 }
