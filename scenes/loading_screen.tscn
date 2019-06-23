@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/graphic/cyber_brain_background.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/fonts/gravity8_40_dynamicfont.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/fx/shaders/pixelation.shader" type="Shader" id=3]
-[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/fonts/Kapel.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=3]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -29,12 +28,11 @@ func goto_next_scene() -> void:
   else:
     next_scene()"
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 3 )
-shader_param/pixel_size = 0.004
-shader_param/pixel_ratio = 0.5625
-shader_param/tint = null
-shader_param/mixin = 0.0
+[sub_resource type="DynamicFont" id=2]
+size = 40
+outline_size = 5
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 2 )
 
 [node name="loading_screen" type="Control"]
 anchor_right = 1.0
@@ -50,24 +48,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="label" type="Label" parent="content/center_container"]
-margin_left = 815.0
-margin_top = 515.0
-margin_right = 1105.0
-margin_bottom = 565.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+margin_left = 897.0
+margin_top = 521.0
+margin_right = 1023.0
+margin_bottom = 559.0
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 1, 1, 1, 1 )
 custom_constants/shadow_offset_x = 4
 custom_constants/shadow_offset_y = 4
 custom_constants/shadow_as_outline = 4
-text = "Loading..."
+text = "Loading"
 
-[node name="pixelation" type="CanvasLayer" parent="."]
-
-[node name="color_rect" type="ColorRect" parent="pixelation"]
-material = SubResource( 2 )
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="transition_layer" parent="." instance=ExtResource( 4 )]
+[node name="transition_layer" parent="." instance=ExtResource( 3 )]

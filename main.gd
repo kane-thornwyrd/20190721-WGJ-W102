@@ -8,7 +8,7 @@ func _ready() -> void:
   scene_reg.add_scene("loading_screen", loading_scene)
   var loading_i = scene_reg.get_scene("loading_screen").instance()
   self.add_child(loading_i)
-  load_data(loading_i)
+  assert load_data(loading_i) == 0
 
 func load_data(loading_screen:Node) -> int:
   var scenes_dir = Directory.new()

@@ -6,7 +6,7 @@
 [ext_resource path="res://assets/fonts/kapel_button.tres" type="DynamicFont" id=4]
 [ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=5]
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=1]
 script/source = "extends Control
 
 func _ready() -> void:
@@ -14,10 +14,10 @@ func _ready() -> void:
   yield($transition_layer, \"animation_finished\")
   $ui/center_container/v_split_container/back.grab_focus()"
 
-[node name="options" type="Control"]
+[node name="options_sounds" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-script = SubResource( 6 )
+script = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,6 +29,15 @@ __meta__ = {
 [node name="center_container" type="CenterContainer" parent="ui"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+
+[node name="color_rect" type="ColorRect" parent="ui/center_container"]
+margin_left = 960.0
+margin_top = 540.0
+margin_right = 960.0
+margin_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color( 0, 0, 0, 0.831373 )
 
 [node name="v_split_container" type="VSplitContainer" parent="ui/center_container"]
 margin_left = 797.0
@@ -70,7 +79,7 @@ text = "Controls"
 flat = true
 script = ExtResource( 3 )
 to = "options_keymapping"
-transition_path = NodePath("../../../../../../transition_layer")
+transition_path = NodePath("../../../../../../../options_sounds/transition_layer")
 
 [node name="v_box_container2" type="VBoxContainer" parent="ui/center_container/v_split_container/h_split_container"]
 margin_left = 196.0
@@ -95,7 +104,7 @@ text = "Sounds"
 flat = true
 script = ExtResource( 3 )
 to = "options_sounds"
-transition_path = NodePath("../../../../../../transition_layer")
+transition_path = NodePath("../../../../../../../options_sounds/transition_layer")
 
 [node name="back" type="Button" parent="ui/center_container/v_split_container"]
 margin_top = 84.0
@@ -109,6 +118,8 @@ text = "Back"
 flat = true
 script = ExtResource( 3 )
 to = "main_menu"
-transition_path = NodePath("../../../../transition_layer")
+transition_path = NodePath("../../../../../options_sounds/transition_layer")
 
 [node name="transition_layer" parent="." instance=ExtResource( 5 )]
+anim_player_path = NodePath("../../options_sounds/transition_layer/anim_player")
+color_rect_path = NodePath("../../options_sounds/transition_layer/color_rect")

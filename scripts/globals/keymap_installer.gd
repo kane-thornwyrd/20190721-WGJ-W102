@@ -43,17 +43,17 @@ static func load_actions_keymaps() -> Dictionary:
   save_file.open(KEYMAPPING_FILE, File.READ)
   return JSON.parse(save_file.get_as_text()).result
 
-static func persist_actions_keymaps(settings = false) -> void:
+static func persist_actions_keymaps(settings:Dictionary = {}) -> void:
   var dir = Directory.new()
   if !dir.dir_exists(SETTINGS_FOLDER):
     dir.open("user://")
     dir.make_dir(SETTINGS_FOLDER)
 
   var save_file = File.new()
-  if !save_file.file_exists(KEYMAPPING_FILE):
+  if not save_file.file_exists(KEYMAPPING_FILE):
     save_file.open(KEYMAPPING_FILE, File.WRITE)
     save_file.store_line(JSON.print(REQUIRED_ACTS, " ", true))
-  elif settings != false:
+  elif settings.size() > 0:
     save_file.open(KEYMAPPING_FILE, File.WRITE)
     save_file.store_line(JSON.print(settings, " ", true))
   save_file.close()
@@ -64,7 +64,7 @@ static func save_an_action_keymap(action:String, key:int, save:bool = false) -> 
   var input = InputEventKey.new()
   input.scancode = key
 
-  if reg_acts.find(action) > -1:
+  if reg_acts.has(action):
     InputMap.erase_action(action)
 
   InputMap.add_action(action)
