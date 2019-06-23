@@ -1,13 +1,15 @@
 extends KinematicBody2D
 class_name Player
 
+var bullet_scene:PackedScene = preload("res://scripts/bullet.tscn")
+
 const floor_normal:Vector2 = Vector2()
 
 signal health_changed(amount, max_health)
 signal max_health_changed(max_health)
 signal dead
 
-export var recoil:float = 0.33333 # 180 fire per minute
+export var recoil:float = 0.08 # ~360 fire per minute
 export var max_health:int = 100 setget _set_max_health
 
 # warning-ignore:unused_class_variable
@@ -18,7 +20,20 @@ onready var health = max_health setget _set_health
 
 var velocity:Vector2 = Vector2()
 var move_direction:Vector2 = Vector2()
-var speed:float = 500.0
+var speed:float = 700.0
+
+func _ready() -> void:
+  $recoil_timer.connect("timeout", self, "_shoot")
+  $recoil_timer.start(recoil)
+
+func _shoot() -> void:
+  randomize()
+  var bullet = bullet_scene.instance()
+  bullet.global_position = $muzzle.global_position
+  bullet.direction = Vector2(cos($muzzle.rotation), sin($muzzle.rotation))
+  bullet.direction += Vector2(randf() / 10, randf() / 10)
+  bullet.rotation = $muzzle.rotation
+  add_child(bullet)
 
 func get_reaction_time() -> float: return 10.0;
 
@@ -38,6 +53,7 @@ func damage(amount:int) -> void:
     damage_effects.play("rest")
 
 func kill() -> void:
+  $recoil_timer.stop()
   pass
 
 func _set_health(amount:int) -> void:

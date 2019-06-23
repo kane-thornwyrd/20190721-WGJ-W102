@@ -1,5 +1,7 @@
 "Kapel" font by Jeti [url]https://fontenddev.com/fonts/kapel/[/url] Licensed under CC BY 4.0: [url]https://creativecommons.org/licenses/by/4.0/[/url]
 
+Bullets by Bonsaiheldin | [url]http://bonsaiheld.org[/url]
+
 Code 100% custom made, licensed under GPL v3.0, made by Jean-cedric "Kane Thornwyrd" Therond
 
 Using GODOT 3.1.1 [url]https://godotengine.org/[/url] licensed under the MIT License

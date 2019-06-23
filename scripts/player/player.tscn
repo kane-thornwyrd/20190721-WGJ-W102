@@ -583,8 +583,11 @@ tracks/1/keys = {
 }
 
 [node name="player" type="KinematicBody2D"]
+position = Vector2( 171.006, 194.993 )
 script = ExtResource( 1 )
-recoil = 0.167
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -5 )
@@ -612,8 +615,7 @@ anims/fire_sw = SubResource( 11 )
 anims/fire_w = SubResource( 10 )
 
 [node name="recoil_timer" type="Timer" parent="."]
-wait_time = 0.33
-one_shot = true
+process_mode = 0
 
 [node name="muzzle" type="Position2D" parent="."]
 position = Vector2( 35, -30 )
