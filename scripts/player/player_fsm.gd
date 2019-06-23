@@ -6,6 +6,7 @@ const STATE_DIR = "res://scripts/player/states"
 var actions:Dictionary
 
 func _init() -> void:
+  if keymap_installer == null: KeymapInstaller.new();
   for action in InputMap.get_actions():
     actions[action] = false
 
@@ -27,8 +28,8 @@ func _ready() -> void:
     self.states[state_name].actions = actions
     state_file = states_dir.get_next()
 
-  self.next_state = self.states.wait
-  self.call_deferred("set_state", self.states.wait)
+  self.next_state = self.states.fire_e
+  self.call_deferred("set_state", self.states.fire_e)
 
 func _state_logic(delta: float) -> void:
   states[state.name].logic()
@@ -51,3 +52,4 @@ func _enter_state(new_state: State, old_state: State) -> void:
 
 func _exit_state(old_state: State, new_state: State) -> void:
   states[old_state.name].exiting(new_state);
+

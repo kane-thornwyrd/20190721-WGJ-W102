@@ -3,11 +3,12 @@ class_name Player
 
 const floor_normal:Vector2 = Vector2()
 
-signal health_changed(amount)
+signal health_changed(amount, max_health)
+signal max_health_changed(max_health)
 signal dead
 
 export var recoil:float = 0.33333 # 180 fire per minute
-export var max_health:int = 100
+export var max_health:int = 100 setget _set_max_health
 
 # warning-ignore:unused_class_variable
 onready var anim_player:AnimationPlayer = $animation_player
@@ -41,16 +42,13 @@ func kill() -> void:
 
 func _set_health(amount:int) -> void:
   var prev_health:int = self.health
-  self.health = clamp(amount, 0, max_health)
-  if prev_health != self.health:
-    emit_signal("health_changed", self.health)
-    if self.health == 0:
+  health = clamp(amount, 0, max_health)
+  if prev_health != health:
+    emit_signal("health_changed", health, max_health)
+    if health == 0:
       kill()
       emit_signal("dead")
 
-
-
-
-
-
-
+func _set_max_health(new_max_health:int) -> void:
+  emit_signal("max_health_changed", new_max_health)
+  max_health = new_max_health

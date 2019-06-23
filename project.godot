@@ -24,6 +24,46 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/states/fire_e.gd"
 }, {
+"base": "Node",
+"class": "FireN",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_n.gd"
+}, {
+"base": "Node",
+"class": "FireNE",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_ne.gd"
+}, {
+"base": "Node",
+"class": "FireNW",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_nw.gd"
+}, {
+"base": "Node",
+"class": "FireS",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_s.gd"
+}, {
+"base": "Node",
+"class": "FireSE",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_se.gd"
+}, {
+"base": "Node",
+"class": "FireSW",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_sw.gd"
+}, {
+"base": "Node",
+"class": "FireW",
+"language": "GDScript",
+"path": "res://scripts/player/states/fire_w.gd"
+}, {
+"base": "Control",
+"class": "Healthbar",
+"language": "GDScript",
+"path": "res://scripts/healthbar.gd"
+}, {
 "base": "HBoxContainer",
 "class": "InputLine",
 "language": "GDScript",
@@ -59,6 +99,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scripts/player/player_fsm.gd"
 }, {
+"base": "Node",
+"class": "PlayerState",
+"language": "GDScript",
+"path": "res://scripts/player/player_state.gd"
+}, {
 "base": "Button",
 "class": "QuitButton",
 "language": "GDScript",
@@ -78,6 +123,14 @@ _global_script_class_icons={
 "ActionList": "",
 "Echo": "",
 "FireE": "",
+"FireN": "",
+"FireNE": "",
+"FireNW": "",
+"FireS": "",
+"FireSE": "",
+"FireSW": "",
+"FireW": "",
+"Healthbar": "",
 "InputLine": "",
 "KeySelector": "",
 "KeymapInstaller": "",
@@ -85,6 +138,7 @@ _global_script_class_icons={
 "NavigationButton": "",
 "Player": "",
 "PlayerFSM": "",
+"PlayerState": "",
 "QuitButton": "",
 "State": "",
 "StateMachine": "res://addons/kane-FSM/fsm_icon.svg"
@@ -144,6 +198,33 @@ texture={
 "size_limit": 0,
 "stream": false,
 "svg/scale": 1.0
+}
+
+[input]
+
+move_left={
+"deadzone": 0.5,
+"events": [  ]
+}
+move_right={
+"deadzone": 0.5,
+"events": [  ]
+}
+move_up={
+"deadzone": 0.5,
+"events": [  ]
+}
+move_down={
+"deadzone": 0.5,
+"events": [  ]
+}
+activate={
+"deadzone": 0.5,
+"events": [  ]
+}
+sprint={
+"deadzone": 0.5,
+"events": [  ]
 }
 
 [node]
