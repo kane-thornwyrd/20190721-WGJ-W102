@@ -9,7 +9,7 @@ signal health_changed(amount, max_health)
 signal max_health_changed(max_health)
 signal dead
 
-export var recoil:float = 0.08 # ~360 fire per minute
+export var recoil:float = 0.1666 # ~360 fire per minute
 export var max_health:int = 100 setget _set_max_health
 
 # warning-ignore:unused_class_variable

@@ -4,7 +4,7 @@ class_name Bullet
 export var speed:float = 2000
 export var damage:float = 15
 export var skin:Texture
-export var effect:int = 1
+export var effect:int = 2
 
 var direction:Vector2 = Vector2()
 
