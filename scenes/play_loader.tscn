@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/play_loader.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/Kapel_40.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/fonts/kapel_button.tres" type="DynamicFont" id=3]
-[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/healthbar.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/fonts/Kapel_40.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/fonts/kapel_button.tres" type="DynamicFont" id=4]
+[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -56,7 +57,7 @@ func _go_main_menu() -> void:
 [node name="play_loader" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 2
+mouse_filter = 1
 mouse_default_cursor_shape = 2
 script = ExtResource( 1 )
 __meta__ = {
@@ -71,8 +72,14 @@ anchor_bottom = 1.0
 mouse_filter = 2
 mouse_default_cursor_shape = 2
 
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="Healthbar" parent="gui" instance=ExtResource( 2 )]
+margin_right = 0.0
+margin_bottom = 0.0
+rect_scale = Vector2( 1, 0.5 )
+
 [node name="pause_menu" type="CanvasLayer" parent="."]
-editor/display_folded = true
 layer = 126
 
 [node name="pause_modal" type="Control" parent="pause_menu"]
@@ -101,16 +108,16 @@ margin_bottom = 116.5
 alignment = 1
 
 [node name="Label" type="Label" parent="pause_menu/pause_modal/VBoxContainer"]
-margin_right = 154.0
+margin_right = 156.0
 margin_bottom = 38.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 3 )
 text = "PAUSED"
 align = 1
 valign = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="pause_menu/pause_modal/VBoxContainer"]
 margin_top = 42.0
-margin_right = 154.0
+margin_right = 156.0
 margin_bottom = 233.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -120,27 +127,27 @@ size_flags_vertical = 3
 alignment = 2
 
 [node name="continue" type="Button" parent="pause_menu/pause_modal/VBoxContainer/VBoxContainer"]
-margin_top = 147.0
-margin_right = 154.0
+margin_top = 123.0
+margin_right = 156.0
 margin_bottom = 167.0
 mouse_default_cursor_shape = 2
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 text = "continue"
 script = SubResource( 2 )
 modal_path = NodePath("../../../..")
 
 [node name="forfeit" type="Button" parent="pause_menu/pause_modal/VBoxContainer/VBoxContainer"]
 margin_top = 171.0
-margin_right = 154.0
+margin_right = 156.0
 margin_bottom = 191.0
 mouse_default_cursor_shape = 2
 text = "forfeit"
 script = SubResource( 3 )
-transition_path = NodePath("../../../../../../transition_layer")
+transition_path = NodePath("../../../../../transition_layer")
 modal_path = NodePath("../../../..")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 volume_db = -20.0
 autoplay = true
 
-[node name="transition_layer" parent="." instance=ExtResource( 4 )]
+[node name="transition_layer" parent="." instance=ExtResource( 5 )]

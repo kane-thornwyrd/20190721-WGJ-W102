@@ -10,7 +10,7 @@ extents = Vector2( 960, 10 )
 
 [sub_resource type="Curve2D" id=3]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 1000, -200, 98.3738, -114.241, -98.3738, 114.241, 310, 170, 17.4534, -133.281, -17.4534, 133.281, 160, 460, -416.203, -1.22774, 416.203, 1.22774, 740, 660 )
+"points": PoolVector2Array( 0, 0, 0, 0, -372.572, 24.4761, -135.97, -85.8594, 135.97, 85.8594, 202.066, 512.64, -416.203, -1.22774, 416.203, 1.22774, 740, 660 )
 }
 
 [node name="level" type="Node"]
@@ -53,10 +53,13 @@ shape = SubResource( 1 )
 one_way_collision = true
 one_way_collision_margin = 0.0
 
-[node name="entry_path" type="Path2D" parent="."]
+[node name="game" type="CanvasLayer" parent="."]
+
+[node name="entry_path" type="Path2D" parent="game"]
+self_modulate = Color( 1, 1, 1, 0.701961 )
 curve = SubResource( 3 )
 
-[node name="player_tractor" type="PathFollow2D" parent="entry_path"]
+[node name="player_tractor" type="PathFollow2D" parent="game/entry_path"]
 position = Vector2( 1000, -200 )
 rotation = 2.73188
 loop = false

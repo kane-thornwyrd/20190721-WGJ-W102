@@ -12,17 +12,17 @@ var direction:Vector2 = Vector2()
 func _ready() -> void:
   set_as_toplevel(true)
 
-  $lifetime.connect("timeout", self, "_on_screen_exited")
+  assert $lifetime.connect("timeout", self, "_on_screen_exited") == 0
   $lifetime.start(alive_duration)
 
   $skin.texture = skin
-  $skin.hframes = skin.get_width() / 39
+  $skin.hframes = float(skin.get_width()) / 39.0
   $skin.frame = effect
   $audio_shoot.pitch_scale *= rand_range(0.7, 1.1)
   $audio_shoot.play()
 
-  $visibility_notifier_2d.connect("screen_exited", self, "_on_screen_exited")
-  self.connect("body_entered", self, "_on_body_entered")
+  assert $visibility_notifier_2d.connect("screen_exited", self, "_on_screen_exited") == 0
+  assert self.connect("body_entered", self, "_on_body_entered") == 0
 
 func _process(delta: float) -> void:
   position += direction * speed * delta

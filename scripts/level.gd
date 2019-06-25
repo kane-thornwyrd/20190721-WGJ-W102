@@ -5,8 +5,11 @@ var Player = preload("res://scripts/player/player.tscn")
 
 export var entry_duration:int = 3
 
+# warning-ignore:unused_signal
 signal lose
+# warning-ignore:unused_signal
 signal win
+
 # warning-ignore:unused_signal
 signal player_available(player)
 
@@ -16,10 +19,10 @@ func _ready() -> void:
   initialize()
 
 func initialize() -> void:
-  var tractor:PathFollow2D = $entry_path/player_tractor
+  var tractor:PathFollow2D = $game/entry_path/player_tractor
   player = Player.instance()
 
-  assert player.connect("ready", self, "emit_signal", ["player_available"]) == 0
+  assert player.connect("ready", self, "emit_signal", ["player_available", player]) == 0
   tractor.add_child(player)
   var tween_entry = Tween.new()
   add_child(tween_entry)

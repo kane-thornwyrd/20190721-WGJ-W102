@@ -3,43 +3,43 @@ class_name Healthbar
 
 # Code gladly provided in (large) part by Game Endeavor
 
+# warning-ignore:unused_signal
 signal pulse
 
 const FLASH_RATE = 0.05
 const N_FLASHES = 4
 
-export (Color) var healthy_color = Color.green
-export (Color) var caution_color = Color.orange
-export (Color) var danger_color = Color.red
-export (Color) var pulse_color = Color.darkred
-export (Color) var flash_color = Color.orangered
+export (Color) var healthy_color = Color.darkgreen
+export (Color) var caution_color = Color.darkorange
+export (Color) var danger_color = Color.darkred
+# warning-ignore:unused_class_variable
+export (Color) var pulse_color = Color.red
+export (Color) var flash_color = Color.darkred
 
 export (float, 0, 1, 0.05) var caution_zone = 0.45
 export (float, 0, 1, 0.05) var danger_zone = 0.2
 
 export var will_pulse:bool = true
 
-export var player_path:NodePath
 
 onready var health_over:TextureProgress = $top_bar
 onready var health_under:TextureProgress = $under_bar
+# warning-ignore:unused_class_variable
 onready var update_tween:Tween = $update_tween
 onready var pulse_tween:Tween = $pulse_tween
+# warning-ignore:unused_class_variable
 onready var flash_tween:Tween = $flash_tween
-onready var player = get_node(player_path)
 
 var _prev_health
-
-func _ready() -> void:
-  player.connect("health_changed", self, "_on_health_changed")
+var player:Player setget _player_added
 
 func _on_health_changed(health, max_health) -> void:
   if _prev_health == null: _prev_health = health
-  var amount = _prev_health - health
+  var amount = clamp(_prev_health - health, -max_health, max_health)
 
   health_over.value = health
-  update_tween.interpolate_property(health_under, "value", health_under.value, health, 1.0, Tween.TRANS_EXPO, Tween.EASE_IN)
-  update_tween.start()
+  assert update_tween.interpolate_property(health_under, "value", health_under.value, health, 1.0, Tween.TRANS_QUINT, Tween.EASE_OUT)
+  assert update_tween.start()
   _assign_color(health)
   if amount < 0:
     _flash_damage()
@@ -50,10 +50,10 @@ func _assign_color(health:int) -> void:
   elif health < health_over.max_value * danger_zone:
     if will_pulse:
       if not pulse_tween.is_active():
-        pulse_tween.interpolate_property(
-          health_over, "tint_progress", pulse_color, danger_color, 0.2, Tween.TRANS_QUINT, Tween.EASE_IN_OUT)
-        pulse_tween.interpolate_callback(self, 0.0, "emit_signal", "pulse")
-        pulse_tween.start()
+        assert pulse_tween.interpolate_property(
+          health_over, "tint_progress", pulse_color, danger_color, 0.3, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
+        assert pulse_tween.interpolate_callback(self, 0.0, "emit_signal", "pulse")
+        assert pulse_tween.start()
     else:
       health_over.tint_progress = danger_color
   else:
@@ -71,19 +71,15 @@ func _flash_damage() -> void:
   for i in range(N_FLASHES * 2):
     var color = health_over.tint_progress if i % 2 == 1 else flash_color
     var time = FLASH_RATE * i + FLASH_RATE
-    flash_tween.interpolate_callback(health_over, time, "set", "tint_progress", color)
-  flash_tween.start()
+    assert flash_tween.interpolate_callback(health_over, time, "set", "tint_progress", color)
+  assert flash_tween.start()
 
-
-
-
-
-
-
-
-
-
-
-
+func _player_added(ply:Player) -> void:
+  if player != ply:
+    if player: player.disconnect("health_changed", self, "_on_health_changed");
+    player = ply
+    assert player.connect("health_changed", self, "_on_health_changed") == 0
+    assert self.connect("pulse", player, "energy_field_perturbations") == 0
+    _on_health_changed(player.health, player.max_health)
 
 

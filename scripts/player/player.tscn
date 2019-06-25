@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/143.png" type="Texture" id=2]
@@ -379,6 +379,23 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0.254902 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.254902 ) ]
 }
 
+[sub_resource type="Animation" id=14]
+resource_name = "heal"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("body/shield:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0.462745, 1, 1 ) ]
+}
+
 [sub_resource type="Animation" id=13]
 length = 0.1
 tracks/0/type = "value"
@@ -450,7 +467,7 @@ position = Vector2( 0.835083, 0 )
 rotation = 1.5708
 scale = Vector2( 0.25, 0.2 )
 frames = SubResource( 2 )
-frame = 10
+frame = 4
 playing = true
 
 [node name="fsm" type="Node" parent="."]
@@ -479,6 +496,7 @@ one_shot = true
 [node name="damage_effects" type="AnimationPlayer" parent="."]
 anims/damage = SubResource( 11 )
 anims/damage_boost = SubResource( 12 )
+anims/heal = SubResource( 14 )
 anims/rest = SubResource( 13 )
 
 [node name="intro_timer" type="Timer" parent="."]

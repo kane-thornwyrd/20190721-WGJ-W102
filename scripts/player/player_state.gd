@@ -1,6 +1,7 @@
 extends "res://addons/kane-FSM/state.gd"
 class_name PlayerState
 
+# warning-ignore:unused_class_variable
 var fsm:PlayerFSM
 
 func logic() -> void:

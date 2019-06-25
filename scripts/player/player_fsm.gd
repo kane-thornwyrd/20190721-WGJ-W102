@@ -6,7 +6,6 @@ const STATE_DIR = "res://scripts/player/states"
 var actions:Dictionary
 
 func _init() -> void:
-  if keymap_installer == null: KeymapInstaller.new();
   for action in InputMap.get_actions():
     actions[action] = false
 

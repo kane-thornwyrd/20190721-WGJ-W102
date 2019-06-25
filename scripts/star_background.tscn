@@ -86,7 +86,7 @@ modulate = Color( 0.478431, 0.478431, 0.478431, 1 )
 
 [node name="planet" type="Sprite" parent="parallax_layer_planet"]
 material = SubResource( 1 )
-position = Vector2( 1955.95, -656.295 )
+position = Vector2( 5567.16, -665.849 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 8 )
 centered = false

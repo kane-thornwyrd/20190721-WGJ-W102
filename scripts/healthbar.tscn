@@ -1,8 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/healthbar.gd" type="Script" id=1]
 [ext_resource path="res://assets/graphic/gui/healthbar_background.png" type="Texture" id=2]
 [ext_resource path="res://assets/graphic/gui/healthbar.png" type="Texture" id=3]
+[ext_resource path="res://assets/graphic/gui/healthbar_foreground.png" type="Texture" id=4]
+[ext_resource path="res://assets/fx/shaders/scanlines.shader" type="Shader" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 5 )
+shader_param/lines_distance = 4.0
+shader_param/pixel_size = 2.0
+shader_param/size_screen = 600.0
+shader_param/scanline_alpha = 0.9
+shader_param/lines_velocity = 30.0
 
 [node name="Healthbar" type="Control"]
 margin_right = 800.0
@@ -13,19 +23,28 @@ script = ExtResource( 1 )
 modulate = Color( 0.560784, 0.560784, 0.560784, 1 )
 margin_right = 800.0
 margin_bottom = 64.0
-value = 70.0
+value = 90.0
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
+tint_progress = Color( 0.533333, 0, 0, 1 )
 
 [node name="top_bar" type="TextureProgress" parent="."]
 margin_right = 4.0
 margin_bottom = 14.0
-value = 50.0
-texture_over = ExtResource( 2 )
+value = 85.0
+texture_over = ExtResource( 4 )
 texture_progress = ExtResource( 3 )
+tint_progress = Color( 0.105882, 0.443137, 0.0862745, 1 )
+
+[node name="color_rect" type="ColorRect" parent="top_bar"]
+material = SubResource( 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="update_tween" type="Tween" parent="."]
 
 [node name="pulse_tween" type="Tween" parent="."]
+repeat = true
+playback/repeat = true
 
 [node name="flash_tween" type="Tween" parent="."]

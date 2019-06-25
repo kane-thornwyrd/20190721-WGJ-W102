@@ -18,7 +18,6 @@ onready var anim_player:AnimationPlayer = $animation_player
 onready var damage_boost_timer = $damage_boost_timer
 onready var damage_effects = $damage_effects
 onready var health = max_health setget _set_health
-onready var turret = $body/turret
 onready var shield = $body/shield
 
 var velocity:Vector2 = Vector2()
@@ -47,7 +46,10 @@ func _apply_velocity(delta: float) -> void:
     self.velocity.y = lerp(self.velocity.y, self.speed * self.move_direction.y, 0.2)
     self.velocity = move_and_slide(self.velocity, Vector2(), true)
     if Input.is_key_pressed(KEY_X):
-      damage(10)
+      damage(5)
+    if Input.is_key_pressed(KEY_C):
+      heal(5)
+
 
 func damage(amount:int) -> void:
   if damage_boost_timer.is_stopped():
@@ -58,8 +60,14 @@ func damage(amount:int) -> void:
     yield(damage_boost_timer, "timeout")
     damage_effects.play("rest")
 
+func heal(amount:int) -> void:
+  print_debug(self.health + amount)
+  _set_health(self.health + amount)
+  damage_effects.play("heal")
+  damage_effects.queue("rest")
+
 func kill() -> void:
-  recoil_timer.stop()
+  control_paused = true
   pass
 
 func _set_health(amount:int) -> void:
@@ -83,3 +91,9 @@ func _change_control_paused(ctrl_sd:bool) -> void:
     recoil_timer.stop()
 
   control_paused = ctrl_sd
+
+func energy_field_perturbations() -> void:
+  shield.modulate.a = rand_range(0.0, 1.0)
+  shield.modulate.r = 1.0
+  shield.modulate.g = 0.0
+  shield.modulate.b = 0.0
