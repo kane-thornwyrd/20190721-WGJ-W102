@@ -1,0 +1,35 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/kapel_button.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scripts/nav_button.gd" type="Script" id=2]
+[ext_resource path="res://assets/sounds/focus.ogg" type="AudioStream" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+[sub_resource type="StyleBoxEmpty" id=4]
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[node name="NavigationButton" type="Button"]
+margin_left = 0.7547
+margin_right = 128.755
+margin_bottom = 44.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/disabled = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color_hover = Color( 0.494118, 0, 0, 1 )
+custom_colors/font_color_pressed = Color( 1, 0, 0, 1 )
+shortcut_in_tooltip = false
+text = "Button"
+flat = true
+script = ExtResource( 2 )
+
+[node name="audio_stream_player" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )

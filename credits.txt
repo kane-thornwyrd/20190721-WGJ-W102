@@ -1,6 +1,14 @@
-"Kapel" font by Jeti [url]https://fontenddev.com/fonts/kapel/[/url] Licensed under CC BY 4.0: [url]https://creativecommons.org/licenses/by/4.0/[/url]
+"Kapel" font by Jeti [url]https://fontenddev.com/fonts/kapel/[/url] Licensed under CC BY 4.0
 
 Bullets by Bonsaiheldin | [url]http://bonsaiheld.org[/url]
+
+"Planet" by maewionn | [url]https://opengameart.org/users/maewionn[/url] Licensed under CC BY-SA 3.0
+
+Space FX and ships parts by Skorpio [url]https://opengameart.org/users/skorpio[/url] Licensed under CC BY-SA 3.0
+
+Asteroids by Cmdr G [url]https://opengameart.org/users/cmdr-g[/url] Licensed under CC BY 3.0
+
+Parallax star background by LuminousDragonGames [url]https://opengameart.org/users/luminousdragongames[/url] licensed under public domain
 
 Code 100% custom made, licensed under GPL v3.0, made by Jean-cedric "Kane Thornwyrd" Therond
 

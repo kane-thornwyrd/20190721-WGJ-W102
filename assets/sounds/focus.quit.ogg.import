@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/focus.quit.ogg-7e085bceb10d9cee9cb044b2c01b9907.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/focus.quit.ogg"
+dest_files=[ "res://.import/focus.quit.ogg-7e085bceb10d9cee9cb044b2c01b9907.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

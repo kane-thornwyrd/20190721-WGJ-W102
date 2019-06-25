@@ -1,21 +1,43 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
-[ext_resource path="res://assets/fx/shaders/pixel_smoothing.shader" type="Shader" id=2]
-[ext_resource path="res://assets/graphic/guiluk.spritesheet.png" type="Texture" id=3]
-[ext_resource path="res://scripts/player/player_fsm.gd" type="Script" id=4]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/143.png" type="Texture" id=2]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/061.png" type="Texture" id=3]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/234.png" type="Texture" id=4]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/149.png" type="Texture" id=5]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/094.png" type="Texture" id=6]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit2/012.png" type="Texture" id=7]
+[ext_resource path="res://scripts/Shaker.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0001.png" type="Texture" id=9]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0002.png" type="Texture" id=10]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0003.png" type="Texture" id=11]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0004.png" type="Texture" id=12]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0005.png" type="Texture" id=13]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0006.png" type="Texture" id=14]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0007.png" type="Texture" id=15]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0008.png" type="Texture" id=16]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0009.png" type="Texture" id=17]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0010.png" type="Texture" id=18]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0011.png" type="Texture" id=19]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0012.png" type="Texture" id=20]
+[ext_resource path="res://assets/graphic/fx/rotating_boxes/d_0013.png" type="Texture" id=21]
+[ext_resource path="res://scripts/player/player_fsm.gd" type="Script" id=22]
 
-[sub_resource type="CapsuleShape2D" id=1]
-radius = 20.0
-height = 78.0
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 61.8131, 43.2191 )
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 2 )
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "default",
+"speed": 25.0
+} ]
 
 [sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
+tracks/0/path = NodePath("muzzle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -23,11 +45,11 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
+"update": 0,
+"values": [ Vector2( 17, 0 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
+tracks/1/path = NodePath("muzzle:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -35,11 +57,11 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
+"update": 0,
+"values": [ 0.0 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
+tracks/2/path = NodePath("body/turret:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -47,103 +69,53 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 4 ]
+"update": 0,
+"values": [ 90.0 ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+
+[sub_resource type="Animation" id=4]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("muzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 35, -30 ) ]
+"values": [ Vector2( -20, -36 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("muzzle:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -90.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body/turret:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=4]
-resource_name = "fire_n"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 0, -75 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -90.0 ]
-}
-
 [sub_resource type="Animation" id=5]
-resource_name = "fire_ne"
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
+tracks/0/path = NodePath("muzzle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -151,87 +123,23 @@ tracks/0/enabled = true
 tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
+"update": 0,
+"values": [ Vector2( 6, -26 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
+tracks/1/path = NodePath("muzzle:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 3 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 30, -60 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -44.9719 ]
 }
-
-[sub_resource type="Animation" id=9]
-resource_name = "fire_nw"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
 tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
+tracks/2/path = NodePath("body/turret:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -239,63 +147,38 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 1 ]
+"update": 0,
+"values": [ 45.0 ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+
+[sub_resource type="Animation" id=6]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("muzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -35, -60 ) ]
+"values": [ Vector2( -45, -26 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("muzzle:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -135.0 ]
 }
-
-[sub_resource type="Animation" id=12]
-resource_name = "fire_s"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
 tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
+tracks/2/path = NodePath("body/turret:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -303,63 +186,38 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 6 ]
+"update": 0,
+"values": [ -45.0 ]
 }
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
+
+[sub_resource type="Animation" id=7]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("muzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -3, 2 ) ]
+"values": [ Vector2( -20, 37 ) ]
 }
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("muzzle:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ -270.0 ]
 }
-
-[sub_resource type="Animation" id=13]
-resource_name = "fire_se"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
 tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
+tracks/2/path = NodePath("body/turret:rotation_degrees")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -367,198 +225,14 @@ tracks/2/enabled = true
 tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 7 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, -2 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -315.0 ]
-}
-
-[sub_resource type="Animation" id=11]
-resource_name = "fire_sw"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 5 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -33, 0 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -225.0 ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "fire_w"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:vframes")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 2 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:hframes")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 8 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("sprites:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ 0 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("muzzle:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( -40, -30 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("muzzle:rotation_degrees")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ -180.0 ]
-}
-
-[sub_resource type="Animation" id=6]
-length = 0.1
-step = 0.01
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1 ),
-"transitions": PoolRealArray( 1, 0.0245183, 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
-}
-
-[sub_resource type="Animation" id=7]
-length = 0.2
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ true, false, true ]
+"values": [ 180.0 ]
 }
 
 [sub_resource type="Animation" id=8]
 length = 0.1
 tracks/0/type = "value"
-tracks/0/path = NodePath("sprites:modulate")
+tracks/0/path = NodePath("muzzle:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -567,10 +241,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
+"values": [ Vector2( 5, 25 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("sprites:visible")
+tracks/1/path = NodePath("muzzle:rotation_degrees")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -578,52 +252,237 @@ tracks/1/enabled = true
 tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ true ]
+"update": 0,
+"values": [ -315.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body/turret:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 135.0 ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("muzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -45, 26 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("muzzle:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -225.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body/turret:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 225.0 ]
+}
+
+[sub_resource type="Animation" id=10]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("muzzle:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -56, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("muzzle:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ -180.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("body/turret:rotation_degrees")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 270.0 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("body/shield:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.5
+loop = true
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("body/shield:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.25, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.254902 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0.254902 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("body/shield:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.254902 ) ]
 }
 
 [node name="player" type="KinematicBody2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2( 0, -5 )
 shape = SubResource( 1 )
 
-[node name="sprites" type="Sprite" parent="."]
-material = SubResource( 2 )
-scale = Vector2( 4, 4 )
+[node name="body" type="Node2D" parent="."]
+scale = Vector2( 2, 2 )
+
+[node name="143" type="Sprite" parent="body"]
+rotation = 1.5708
+texture = ExtResource( 2 )
+
+[node name="061" type="Sprite" parent="body"]
+position = Vector2( 15.546, 11.1138 )
 texture = ExtResource( 3 )
-vframes = 2
-hframes = 8
-frame = 4
+
+[node name="234" type="Sprite" parent="body"]
+position = Vector2( -25, -7 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+offset = Vector2( -4, -5.50875 )
+
+[node name="235" type="Sprite" parent="body"]
+position = Vector2( -10, -7 )
+rotation = 1.5708
+texture = ExtResource( 4 )
+offset = Vector2( -4, -5.50875 )
+
+[node name="149" type="Sprite" parent="body"]
+position = Vector2( -10, 0 )
+rotation = 1.5708
+texture = ExtResource( 5 )
+
+[node name="094" type="Sprite" parent="body"]
+position = Vector2( 8.64903, 2.55208 )
+texture = ExtResource( 6 )
+
+[node name="turret" type="Sprite" parent="body"]
+position = Vector2( -10, 0 )
+rotation = 1.5708
+texture = ExtResource( 7 )
+
+[node name="Shaker" parent="body/turret" instance=ExtResource( 8 )]
+position = Vector2( -4.76837e-06, -0.231109 )
+rotation = -1.5708
+amplitude = 1.0
+frequency = 10.0
+property_name = "offset"
+
+[node name="shield" type="AnimatedSprite" parent="body"]
+modulate = Color( 1, 1, 1, 0.254902 )
+position = Vector2( 0.835083, 0 )
+rotation = 1.5708
+scale = Vector2( 0.25, 0.2 )
+frames = SubResource( 2 )
+frame = 10
+playing = true
 
 [node name="fsm" type="Node" parent="."]
-script = ExtResource( 4 )
+script = ExtResource( 22 )
 
 [node name="animation_player" type="AnimationPlayer" parent="."]
 anims/fire_e = SubResource( 3 )
 anims/fire_n = SubResource( 4 )
 anims/fire_ne = SubResource( 5 )
-anims/fire_nw = SubResource( 9 )
-anims/fire_s = SubResource( 12 )
-anims/fire_se = SubResource( 13 )
-anims/fire_sw = SubResource( 11 )
+anims/fire_nw = SubResource( 6 )
+anims/fire_s = SubResource( 7 )
+anims/fire_se = SubResource( 8 )
+anims/fire_sw = SubResource( 9 )
 anims/fire_w = SubResource( 10 )
 
 [node name="recoil_timer" type="Timer" parent="."]
 process_mode = 0
 
 [node name="muzzle" type="Position2D" parent="."]
-position = Vector2( 35, -30 )
+position = Vector2( 17, 0 )
 
 [node name="damage_boost_timer" type="Timer" parent="."]
 wait_time = 0.8
 one_shot = true
 
 [node name="damage_effects" type="AnimationPlayer" parent="."]
-anims/damage = SubResource( 6 )
-anims/damage_boost = SubResource( 7 )
-anims/rest = SubResource( 8 )
+anims/damage = SubResource( 11 )
+anims/damage_boost = SubResource( 12 )
+anims/rest = SubResource( 13 )
+
+[node name="intro_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="intro_step_timer" type="Timer" parent="."]
+one_shot = true
