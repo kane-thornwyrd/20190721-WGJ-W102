@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 
@@ -10,7 +10,12 @@ extents = Vector2( 960, 10 )
 
 [sub_resource type="Curve2D" id=3]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -372.572, 24.4761, -135.97, -85.8594, 135.97, 85.8594, 202.066, 512.64, -416.203, -1.22774, 416.203, 1.22774, 740, 660 )
+"points": PoolVector2Array( 0, 0, 0, 0, -372.572, 24.4761, -135.97, -85.8594, 135.97, 85.8594, 202.066, 512.64, -416.203, -1.22774, 416.203, 1.22774, 785.315, 541.741 )
+}
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 2757.13, 1053.3, 758.154, 81.3163, -758.154, -81.3163, 963.018, 526.757, 0, 0, 0, 0, -623.198, 530.552 )
 }
 
 [node name="level" type="Node"]
@@ -60,6 +65,14 @@ self_modulate = Color( 1, 1, 1, 0.701961 )
 curve = SubResource( 3 )
 
 [node name="player_tractor" type="PathFollow2D" parent="game/entry_path"]
-position = Vector2( 1000, -200 )
-rotation = 2.73188
+position = Vector2( -372.572, 24.4761 )
+rotation = 0.741351
 loop = false
+
+[node name="enemy_path" type="Path2D" parent="game"]
+curve = SubResource( 4 )
+
+[node name="enemy_wagon" type="PathFollow2D" parent="game/enemy_path"]
+position = Vector2( 2757.13, 1053.3 )
+rotation = -2.73809
+rotate = false

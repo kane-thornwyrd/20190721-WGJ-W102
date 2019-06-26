@@ -16,9 +16,10 @@ func load_data(loading_screen:Node) -> int:
   scenes_dir.list_dir_begin(true, true)
   var scene_file:String = scenes_dir.get_next()
   while scene_file.length() > 0:
-    var node = load("res://scenes/%s" % scene_file)
-    var scene_name = (scene_file as String).replace(".tscn", "")
-    scene_reg.add_scene(scene_name, node)
+    if scene_file.ends_with(".tscn"):
+      var node = load("res://scenes/%s" % scene_file)
+      var scene_name = (scene_file as String).replace(".tscn", "")
+      scene_reg.add_scene(scene_name, node)
     scene_file = scenes_dir.get_next()
   print_debug(scene_reg._scenes.keys())
   all_loaded[0] = true

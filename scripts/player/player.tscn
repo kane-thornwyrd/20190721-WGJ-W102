@@ -467,7 +467,7 @@ position = Vector2( 0.835083, 0 )
 rotation = 1.5708
 scale = Vector2( 0.25, 0.2 )
 frames = SubResource( 2 )
-frame = 4
+frame = 5
 playing = true
 
 [node name="fsm" type="Node" parent="."]
