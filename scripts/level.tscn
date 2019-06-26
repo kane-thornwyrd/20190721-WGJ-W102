@@ -66,7 +66,7 @@ curve = SubResource( 3 )
 
 [node name="player_tractor" type="PathFollow2D" parent="game/entry_path"]
 position = Vector2( -372.572, 24.4761 )
-rotation = 0.741351
+rotation = 0.741356
 loop = false
 
 [node name="enemy_path" type="Path2D" parent="game"]

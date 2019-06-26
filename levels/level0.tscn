@@ -6,9 +6,10 @@
 
 [node name="level0" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+entry_duration = 3
 
 [node name="star_background" parent="." index="0" instance=ExtResource( 3 )]
 
 [node name="player_tractor" parent="game/entry_path" index="0"]
-rotation = 0.740902
+rotation = 0.740904
 lookahead = 10.0
