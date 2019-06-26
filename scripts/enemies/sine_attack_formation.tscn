@@ -14,3 +14,4 @@ script = ExtResource( 1 )
 [node name="seat" type="PathFollow2D" parent="."]
 position = Vector2( 482.219, 424.824 )
 rotation = 3.04605
+rotate = false

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/003.png" type="Texture" id=1]
 [ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/028.png" type="Texture" id=2]
@@ -26,8 +26,7 @@
 [ext_resource path="res://assets/graphic/fx/odd_thruster/15.png" type="Texture" id=24]
 [ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/021.png" type="Texture" id=25]
 [ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/016.png" type="Texture" id=26]
-[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/015.png" type="Texture" id=27]
-[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/023.png" type="Texture" id=28]
+[ext_resource path="res://assets/graphic/ship_parts/SpaceshipConstructionKit/023.png" type="Texture" id=27]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -40,88 +39,107 @@ animations = [ {
 [node name="body" type="Node2D"]
 
 [node name="003" type="Sprite" parent="."]
-position = Vector2( 1, 7.51233 )
+position = Vector2( 29.1391, 22.8353 )
 rotation = -1.5708
 texture = ExtResource( 1 )
+flip_v = true
+
+[node name="004" type="Sprite" parent="."]
+position = Vector2( 24.0306, -31.9951 )
+rotation = -1.5708
+texture = ExtResource( 1 )
+flip_h = true
+flip_v = true
 
 [node name="028" type="Sprite" parent="."]
-position = Vector2( 13.3202, -14.5738 )
+position = Vector2( -6.18585, -19.7331 )
 rotation = -1.5708
 texture = ExtResource( 2 )
 flip_h = true
 
 [node name="013" type="Sprite" parent="."]
-position = Vector2( -19.0302, -16.0513 )
+position = Vector2( 43.2185, -15.3102 )
 rotation = -1.5708
 texture = ExtResource( 3 )
 flip_h = true
+flip_v = true
 
 [node name="002" type="Sprite" parent="."]
-position = Vector2( -44, 0 )
+position = Vector2( 24.7632, -2.23331 )
 rotation = -1.5708
 texture = ExtResource( 4 )
 
 [node name="027" type="Sprite" parent="."]
-position = Vector2( -99, 0 )
+position = Vector2( 85.0748, -2.14052 )
 rotation = -1.5708
 texture = ExtResource( 5 )
+flip_v = true
 
 [node name="012" type="Sprite" parent="."]
-position = Vector2( 6, 0 )
+position = Vector2( 14.7909, -1.44567 )
 rotation = -1.5708
 texture = ExtResource( 6 )
 
 [node name="034" type="Sprite" parent="."]
-position = Vector2( -17, 29.5123 )
+position = Vector2( 45.6738, 46.8685 )
 rotation = -1.5708
 texture = ExtResource( 7 )
+flip_v = true
+
+[node name="035" type="Sprite" parent="."]
+position = Vector2( 40.9702, -57.3582 )
+rotation = -1.5708
+texture = ExtResource( 7 )
+flip_h = true
+flip_v = true
 
 [node name="062" type="Sprite" parent="."]
-position = Vector2( 36, 12 )
+position = Vector2( -30.9756, 12.4154 )
 rotation = -1.5708
 texture = ExtResource( 8 )
+flip_v = true
 
 [node name="thruster2" type="AnimatedSprite" parent="."]
 modulate = Color( 0.521569, 0.521569, 0.521569, 0.458824 )
-position = Vector2( 57.6592, -13.5561 )
+position = Vector2( -54.7602, -17.6495 )
 rotation = -1.5708
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
-frame = 5
+frame = 6
 playing = true
+flip_v = true
 
 [node name="063" type="Sprite" parent="."]
-position = Vector2( 36, -12 )
+position = Vector2( -31.0695, -12.2317 )
 rotation = -1.5708
 texture = ExtResource( 8 )
 flip_h = true
+flip_v = true
 
 [node name="021" type="Sprite" parent="."]
-position = Vector2( 18, 0 )
+position = Vector2( -18.8248, 0.179131 )
 rotation = 1.5708
 texture = ExtResource( 25 )
+flip_v = true
 
 [node name="016" type="Sprite" parent="."]
-position = Vector2( -21.2545, 7.65159 )
+position = Vector2( 47.6865, 5.90595 )
 rotation = -1.5708
 texture = ExtResource( 26 )
 
-[node name="015" type="Sprite" parent="."]
-position = Vector2( -72, 13 )
+[node name="023" type="Sprite" parent="."]
+position = Vector2( 82.7182, -5.28366 )
 rotation = -1.5708
 texture = ExtResource( 27 )
-
-[node name="023" type="Sprite" parent="."]
-position = Vector2( -95.9107, -6.19823 )
-rotation = -1.5708
-texture = ExtResource( 28 )
 flip_h = true
+flip_v = true
 
 [node name="thruster" type="AnimatedSprite" parent="."]
 modulate = Color( 1, 1, 1, 0.458824 )
-position = Vector2( 51, 0 )
+position = Vector2( -55.6418, 0.001297 )
 rotation = -1.5708
 scale = Vector2( 0.25, 0.25 )
 frames = SubResource( 1 )
-frame = 5
+frame = 6
 playing = true
+flip_v = true

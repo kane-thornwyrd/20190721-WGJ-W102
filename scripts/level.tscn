@@ -73,6 +73,8 @@ loop = false
 curve = SubResource( 4 )
 
 [node name="enemy_wagon" type="PathFollow2D" parent="game/enemy_path"]
-position = Vector2( 2757.13, 1053.3 )
+position = Vector2( 1146.81, 552.369 )
 rotation = -2.73809
+offset = 1679.14
 rotate = false
+loop = false

@@ -1,8 +1,10 @@
 extends Node
 class_name Level
 
-#var Player = preload("res://scripts/player/player.tscn")
-var sine_attack_formation:PackedScene = preload("res://scripts/enemies/sine_attack_formation.tscn")
+# warning-ignore:unused_class_variable
+var Formation = preload("res://scripts/enemies/formation.gd")
+var Player = preload("res://scripts/player/player.tscn")
+var sine_attack_formation:PackedScene = load("res://scripts/enemies/sine_attack_formation.tscn")
 
 const ENEMIES = [
   preload("res://scripts/enemies/beholder/beholder.tscn")
@@ -11,6 +13,7 @@ const ENEMIES = [
 enum ENEMY_TYPES { BEHOLDER }
 
 export var entry_duration:int = 3
+export var level_duration:float = 60 * 2
 
 # warning-ignore:unused_signal
 signal lose
@@ -41,7 +44,41 @@ func initialize() -> void:
   tween_entry.interpolate_property(tractor, "unit_offset", 0, 1, entry_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
   tween_entry.start()
 
-  print_debug(formations)
+  setup(player)
+  tween_maker()
+  start_waves()
+
+func setup(player:Player) -> void: pass;
+
+func tween_maker() -> void:
+
+  var _unit_offset_part:float
+  var _dur:float = level_duration / float(formations.size())
+  for i in range(formations.size()):
+    var current_formation:Formation = formations[i]
+    current_formation.duration = _dur
+    var tw:Tween = Tween.new()
+    tw.repeat = true
+    tw.interpolate_property(
+      current_formation, "unit_offset", 0, 1,
+      _dur, Tween.TRANS_SINE, Tween.EASE_IN_OUT
+    )
+    tw.connect("tween_all_completed", current_formation, "queue_free")
+    current_formation.tween_inside = tw
+    var _dur_enemy:float = _dur / float(current_formation.get_children().size())
+    for j in range(current_formation.get_children().size()):
+      var cur_seat = current_formation.get_child(j)
+      _unit_offset_part = 0.5/float(current_formation.get_children().size())
+      var cur_seat_offset:float = j * _unit_offset_part
+      var tw2:Tween = Tween.new()
+      tw2.repeat = true
+      tw2.interpolate_property(
+        cur_seat, "unit_offset", cur_seat_offset, 1 + cur_seat_offset,
+        _dur_enemy, 0, 0
+      )
+      cur_seat.add_child(tw2, true)
+    current_formation.add_child(tw, true)
+    enemy_wagon.add_child(current_formation)
 
 func _move_node2d(target:Node2D, from:Node, to:Node) -> void:
   var glob_pos = target.global_position
@@ -49,10 +86,15 @@ func _move_node2d(target:Node2D, from:Node, to:Node) -> void:
   to.add_child(target)
   target.global_position = glob_pos
 
-func _process(delta: float) -> void:
+func start_waves() -> void:
   for i in range(formations.size()):
-    var current_formation = formations[i]
-    print("cool")
+    var current_formation:Formation = formations[i]
+    assert current_formation.tween_inside.start()
+    for j in range(current_formation.get_children().size()):
+      var _tween_maybe = current_formation.get_child(j).get_child(1)
+      if _tween_maybe is Tween:
+        assert _tween_maybe.start()
+
 
 
 

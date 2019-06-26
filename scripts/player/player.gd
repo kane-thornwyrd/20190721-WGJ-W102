@@ -45,11 +45,6 @@ func _apply_velocity(delta: float) -> void:
     self.velocity.x = lerp(self.velocity.x, self.speed * self.move_direction.x, 0.2)
     self.velocity.y = lerp(self.velocity.y, self.speed * self.move_direction.y, 0.2)
     self.velocity = move_and_slide(self.velocity, Vector2(), true)
-    if Input.is_key_pressed(KEY_X):
-      damage(5)
-    if Input.is_key_pressed(KEY_C):
-      heal(5)
-
 
 func damage(amount:int) -> void:
   if damage_boost_timer.is_stopped():
@@ -61,7 +56,6 @@ func damage(amount:int) -> void:
     damage_effects.play("rest")
 
 func heal(amount:int) -> void:
-  print_debug(self.health + amount)
   _set_health(self.health + amount)
   damage_effects.play("heal")
   damage_effects.queue("rest")
