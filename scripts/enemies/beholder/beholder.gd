@@ -1,2 +1,2 @@
-extends "res://scripts/enemies/enemy.gd"
+extends Enemy
 class_name Beholder

@@ -11,13 +11,11 @@ export var duration:float
 # warning-ignore:unused_class_variable
 var tween_inside:Tween
 
-func setup(player:Player) -> void:
+func setup() -> void:
   var seat:PathFollow2D = $seat
   remove_child($seat)
   for i in range(seat_number):
     var cur_seat:PathFollow2D = seat.duplicate()
     var cur_enemy = i % enemy_types.size()
-    var enemy = Level.ENEMIES[cur_enemy].instance()
-    enemy.player = player
-    cur_seat.add_child(enemy)
+    cur_seat.add_child(Level.ENEMIES[cur_enemy].instance())
     add_child(cur_seat, true)
