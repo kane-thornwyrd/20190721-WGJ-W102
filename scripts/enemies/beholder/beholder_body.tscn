@@ -56,7 +56,7 @@ flip_v = true
 [node name="thruster2" parent="." instance=ExtResource( 6 )]
 modulate = Color( 0.611765, 0.611765, 0.611765, 0.458824 )
 position = Vector2( -56.6327, -18.6616 )
-frame = 5
+frame = 1
 
 [node name="012" type="Sprite" parent="."]
 position = Vector2( 14.7909, -1.44567 )
@@ -108,7 +108,7 @@ flip_h = true
 flip_v = true
 
 [node name="thruster" parent="." instance=ExtResource( 6 )]
-frame = 6
+frame = 2
 
 [node name="038" type="Sprite" parent="."]
 position = Vector2( 25, 0 )

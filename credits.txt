@@ -14,7 +14,9 @@ Asteroids by Cmdr G [url]https://opengameart.org/users/cmdr-g[/url] Licensed und
 
 Parallax star background by LuminousDragonGames [url]https://opengameart.org/users/luminousdragongames[/url] licensed under public domain
 
-Code & Music & SFX 1 & ships by Jean-cedric "Kane Thornwyrd" Thérond licensed under GPL v3.0
+BOSS Shooter theme by Fabri
+
+Code, Music & SFX & ships by Jean-cedric "Kane Thornwyrd" Thérond licensed under GPL v3.0
 
 Using GODOT 3.1.1 [url]https://godotengine.org/[/url] licensed under the MIT License
 

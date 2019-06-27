@@ -13,7 +13,10 @@ func _ready() -> void:
   $transition_layer.in_trans()
   yield($transition_layer, \"animation_finished\")
 
-  $credits_layer/credits/VBoxContainer/back.grab_focus()"
+  $credits_layer/credits/VBoxContainer/back.grab_focus()
+  $credits_layer/credits/VBoxContainer/Label.connect(\"meta_clicked\", self, \"_open_link\")
+
+func _open_link(url:String) -> void: OS.shell_open(url);"
 
 [sub_resource type="StyleBoxFlat" id=2]
 content_margin_left = 20.0

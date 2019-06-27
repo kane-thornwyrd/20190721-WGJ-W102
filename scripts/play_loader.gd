@@ -4,8 +4,8 @@ onready var level_container = $level/level_container
 onready var transition_screen = $transition_layer
 
 var levels = [
-  level_reg.get_level("level0"),
-#  level_reg.get_level("level1"),
+  level_reg.get_level("level0")
+#  level_reg.get_level("level1")
 #  level_reg.get_level("level2")
 ]
 

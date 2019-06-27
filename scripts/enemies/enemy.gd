@@ -26,6 +26,9 @@ func control(delta:float) -> void:
     pass
 
 func _process(delta:float) -> void:
+  target_acquisition(delta)
+
+func target_acquisition(delta:float) -> void:
   if target and target.get_ref() != null:
     var _tru_target = target.get_ref()
     var target_dir = (_tru_target.global_position - global_position).normalized()
@@ -37,6 +40,7 @@ func _process(delta:float) -> void:
       if recoil_timer.is_stopped():
         recoil_timer.start()
         shoot()
+
 
 
 func _on_detect_radius_body_entered(body: PhysicsBody2D) -> void:
