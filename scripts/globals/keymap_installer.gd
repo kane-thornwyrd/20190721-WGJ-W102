@@ -9,27 +9,21 @@ enum ACTS {
   MOVE_LEFT,
   MOVE_RIGHT,
   MOVE_UP,
-  MOVE_DOWN,
-  SPRINT,
-  ACTIVATE
+  MOVE_DOWN
 }
 
 const ACTIONS:Array = [
   "move_left",
   "move_right",
   "move_up",
-  "move_down",
-  "sprint",
-  "activate"
+  "move_down"
 ]
 
 const REQUIRED_ACTS:Dictionary = {
   ACTIONS[ACTS.MOVE_LEFT]: KEY_A,
   ACTIONS[ACTS.MOVE_RIGHT]: KEY_D,
   ACTIONS[ACTS.MOVE_UP]: KEY_W,
-  ACTIONS[ACTS.MOVE_DOWN]: KEY_S,
-  ACTIONS[ACTS.SPRINT]: KEY_SHIFT,
-  ACTIONS[ACTS.ACTIVATE]: KEY_E
+  ACTIONS[ACTS.MOVE_DOWN]: KEY_S
 }
 
 func _ready() -> void:

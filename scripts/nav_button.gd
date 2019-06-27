@@ -7,8 +7,8 @@ export var transition_path:NodePath
 onready var transitioner:CanvasLayer = self.get_node(transition_path)
 
 func _ready() -> void:
-  assert self.connect("pressed", self, "_goto") == 0
-  assert self.connect("focus_entered", self, "_play_focus_sound") == 0
+  self.connect("pressed", self, "_goto")
+  self.connect("focus_entered", self, "_play_focus_sound")
 
 func _play_focus_sound() -> void:
   if $audio_stream_player:

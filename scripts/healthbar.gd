@@ -32,14 +32,15 @@ onready var flash_tween:Tween = $flash_tween
 
 var _prev_health
 var player:Player setget _player_added
+var _tru_player:WeakRef
 
 func _on_health_changed(health, max_health) -> void:
   if _prev_health == null: _prev_health = health
   var amount = clamp(_prev_health - health, -max_health, max_health)
 
   health_over.value = health
-  assert update_tween.interpolate_property(health_under, "value", health_under.value, health, 1.0, Tween.TRANS_QUINT, Tween.EASE_OUT)
-  assert update_tween.start()
+  update_tween.interpolate_property(health_under, "value", health_under.value, health, 1.0, Tween.TRANS_QUINT, Tween.EASE_OUT)
+  update_tween.start()
   _assign_color(health)
   if amount < 0:
     _flash_damage()
@@ -50,10 +51,10 @@ func _assign_color(health:int) -> void:
   elif health < health_over.max_value * danger_zone:
     if will_pulse:
       if not pulse_tween.is_active():
-        assert pulse_tween.interpolate_property(
+        pulse_tween.interpolate_property(
           health_over, "tint_progress", pulse_color, danger_color, 0.3, Tween.TRANS_ELASTIC, Tween.EASE_OUT)
-        assert pulse_tween.interpolate_callback(self, 0.0, "emit_signal", "pulse")
-        assert pulse_tween.start()
+        pulse_tween.interpolate_callback(self, 0.0, "emit_signal", "pulse")
+        pulse_tween.start()
     else:
       health_over.tint_progress = danger_color
   else:
@@ -71,15 +72,20 @@ func _flash_damage() -> void:
   for i in range(N_FLASHES * 2):
     var color = health_over.tint_progress if i % 2 == 1 else flash_color
     var time = FLASH_RATE * i + FLASH_RATE
-    assert flash_tween.interpolate_callback(health_over, time, "set", "tint_progress", color)
-  assert flash_tween.start()
+    flash_tween.interpolate_callback(health_over, time, "set", "tint_progress", color)
+  flash_tween.start()
 
 func _player_added(ply:Player) -> void:
-  if player != ply:
-    if player: player.disconnect("health_changed", self, "_on_health_changed");
-    player = ply
-    assert player.connect("health_changed", self, "_on_health_changed") == 0
-    assert self.connect("pulse", player, "energy_field_perturbations") == 0
-    _on_health_changed(player.health, player.max_health)
+  if not ply is Player: return;
+  _tru_player = weakref(ply)
+  player = ply
+
+  if _tru_player.get_ref() != player:
+    player = _tru_player.get_ref()
+    player.disconnect("health_changed", self, "_on_health_changed")
+    self.disconnect("pulse", player, "energy_field_perturbations")
+  player.connect("health_changed", self, "_on_health_changed")
+  self.connect("pulse", player, "energy_field_perturbations")
+  _on_health_changed(player.health, player.max_health)
 
 

@@ -3,7 +3,7 @@ class_name Lifeform
 
 signal health_changed(amount, max_health)
 signal max_health_changed(max_health)
-signal dead
+signal dead(pos)
 
 export var recoil:float = 0.17 # ~360 fire per minute
 export var max_health:float = 100 setget _set_max_health
@@ -32,6 +32,11 @@ onready var puffs_node:Particles2D = $puffs
 onready var explosion:Particles2D = $explosion
 
 var puffs
+var func_state
+
+func force_resume():
+  while func_state is GDScriptFunctionState:
+    func_state = func_state.call().resume()
 
 func _ready() -> void:
   recoil_timer.wait_time = recoil
@@ -46,8 +51,8 @@ func _physics_process(delta:float):
   control(delta)
   for i in get_slide_count():
       var collision:KinematicCollision2D = get_slide_collision(i)
-      if collision.collider.get_class() != "StaticBody2D":
-        damage(1, collision.position)
+      if not collision.collider is StaticBody2D:
+        damage(25, collision.position)
 
 func spawn_puffs(position:Vector2) -> void:
   var tmp_puffs:Particles2D = puffs.duplicate()
@@ -56,13 +61,15 @@ func spawn_puffs(position:Vector2) -> void:
   tmp_puffs.global_position = position
   tmp_puffs.emitting = true
   yield(get_tree().create_timer(2.0), "timeout")
+  force_resume()
   tmp_puffs.queue_free()
 
 func _change_control_paused(ctrl_sd:bool) -> void:
   if control_paused and not ctrl_sd:
-    assert recoil_timer.connect("timeout", self, "shoot") == 0
+    if not recoil_timer.is_connected("timeout", self, "shoot"):
+      recoil_timer.connect("timeout", self, "shoot")
     recoil_timer.start(recoil)
-  elif not control_paused and ctrl_sd:
+  elif not control_paused and ctrl_sd and recoil_timer:
     recoil_timer.stop()
   control_paused = ctrl_sd
 
@@ -74,10 +81,12 @@ func damage(amount:int, dmg_pos:Vector2) -> void:
     damage_effects.play("damage")
     damage_effects.queue("damage_boost")
     yield(damage_boost_timer, "timeout")
+    force_resume()
     damage_effects.play("rest")
 
 func heal(amount:float) -> void:
   _set_health(self.health + amount)
+  $powerup.play()
   damage_effects.play("heal")
   damage_effects.queue("rest")
 
@@ -94,13 +103,19 @@ func _set_max_health(new_max_health:float) -> void:
   max_health = new_max_health
 
 func kill() -> void:
-  emit_signal("dead")
+  emit_signal("dead", global_position)
   alive = false
   control_paused = true
   explosion.show()
+  explosion.rotation_degrees = rand_range(0.0, 360.0)
+  var rnd_scale = rand_range(0.8,1.2)
+  explosion.scale = Vector2(rnd_scale, rnd_scale)
   explosion.play()
+  $explosion_sfx.pitch_scale = rand_range(0.8, 1.2)
+  $explosion_sfx.play()
   $body.hide()
   yield(get_tree().create_timer(0.5), "timeout")
+  force_resume()
   queue_free()
 
 func shoot() -> void:
@@ -111,5 +126,5 @@ func shoot() -> void:
   bullet.direction += Vector2(randf() / 10, randf() / 10)
   bullet.rotation = muzzle.rotation
   bullet.speed *= rand_range(0.8, 1.2)
-  add_child(bullet)
+  get_parent().add_child(bullet)
 

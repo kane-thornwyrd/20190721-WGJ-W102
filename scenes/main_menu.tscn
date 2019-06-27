@@ -1,11 +1,10 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/star_background.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/graphic/main_menu/title.png" type="Texture" id=2]
-[ext_resource path="res://scripts/NavigationButton.tscn" type="PackedScene" id=3]
-[ext_resource path="res://scripts/QuitButton.tscn" type="PackedScene" id=4]
-[ext_resource path="res://assets/sounds/guiluk.theme.loop.ogg" type="AudioStream" id=5]
-[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/NavigationButton.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/QuitButton.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sounds/guiluk.theme.loop.ogg" type="AudioStream" id=4]
+[ext_resource path="res://assets/fx/transition.tscn" type="PackedScene" id=5]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Control
@@ -17,6 +16,19 @@ func _ready() -> void:
   yield($transition_layer, \"animation_finished\")
   self.get_node(first_button_path).grab_focus()
 "
+
+[sub_resource type="DynamicFontData" id=2]
+font_path = "res://assets/fonts/Kapel.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 128
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 2 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 50
+outline_color = Color( 0, 0, 0, 1 )
+font_data = SubResource( 2 )
 
 [node name="main_title" type="Control"]
 anchor_right = 1.0
@@ -41,31 +53,48 @@ margin_right = -40.0
 margin_bottom = -40.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ui/CenterContainer"]
-margin_left = 608.0
-margin_top = 367.0
-margin_right = 1232.0
-margin_bottom = 632.0
+margin_left = 380.0
+margin_top = 280.0
+margin_right = 1460.0
+margin_bottom = 720.0
 alignment = 1
 
-[node name="texture_rect" type="TextureRect" parent="ui/CenterContainer/VBoxContainer"]
-margin_right = 624.0
-margin_bottom = 49.0
-texture = ExtResource( 2 )
+[node name="label" type="Label" parent="ui/CenterContainer/VBoxContainer"]
+margin_right = 1080.0
+margin_bottom = 120.0
+rect_min_size = Vector2( 1080, 100 )
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0.827451, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "GunMan"
+align = 1
+valign = 1
+
+[node name="label2" type="Label" parent="ui/CenterContainer/VBoxContainer"]
+margin_top = 124.0
+margin_right = 1080.0
+margin_bottom = 224.0
+rect_min_size = Vector2( 1080, 100 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 0.827451, 0, 0, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+text = "Space Head Hunter"
+align = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ui/CenterContainer/VBoxContainer"]
 editor/display_folded = true
-margin_top = 53.0
-margin_right = 624.0
-margin_bottom = 265.0
+margin_top = 228.0
+margin_right = 1080.0
+margin_bottom = 440.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_mode = 2
 custom_constants/separation = 20
 alignment = 2
 
-[node name="play" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+[node name="play" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
 margin_left = 0.0
-margin_right = 624.0
+margin_right = 1080.0
 margin_bottom = 38.0
 focus_neighbour_top = NodePath("../quit")
 focus_neighbour_bottom = NodePath("../options")
@@ -75,10 +104,10 @@ text = "Play"
 to = "play_loader"
 transition_path = NodePath("../../../../../transition_layer")
 
-[node name="options" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+[node name="options" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
 margin_left = 0.0
 margin_top = 58.0
-margin_right = 624.0
+margin_right = 1080.0
 margin_bottom = 96.0
 focus_neighbour_top = NodePath("../play")
 focus_neighbour_bottom = NodePath("../credits")
@@ -88,18 +117,18 @@ text = "Options"
 to = "options"
 transition_path = NodePath("../../../../../transition_layer")
 
-[node name="credits" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
+[node name="credits" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 2 )]
 margin_left = 0.0
 margin_top = 116.0
-margin_right = 624.0
+margin_right = 1080.0
 margin_bottom = 154.0
 text = "Credits"
 to = "credits"
 transition_path = NodePath("../../../../../transition_layer")
 
-[node name="quit" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 4 )]
+[node name="quit" parent="ui/CenterContainer/VBoxContainer/VBoxContainer" instance=ExtResource( 3 )]
 margin_top = 174.0
-margin_right = 624.0
+margin_right = 1080.0
 margin_bottom = 212.0
 focus_neighbour_top = NodePath("../credits")
 focus_neighbour_bottom = NodePath("../play")
@@ -108,7 +137,7 @@ focus_previous = NodePath("../credits")
 transition_path = NodePath("../../../../../transition_layer")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
+stream = ExtResource( 4 )
 autoplay = true
 
-[node name="transition_layer" parent="." instance=ExtResource( 6 )]
+[node name="transition_layer" parent="." instance=ExtResource( 5 )]

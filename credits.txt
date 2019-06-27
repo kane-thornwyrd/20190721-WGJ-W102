@@ -1,6 +1,10 @@
+Splash screen & Cutscene: LashGhost
+
 "Kapel" font by Jeti [url]https://fontenddev.com/fonts/kapel/[/url] Licensed under CC BY 4.0
 
 Bullets by Bonsaiheldin | [url]http://bonsaiheld.org[/url]
+
+pickups by eric buisson [url]https://opengameart.org/users/mndvecb[/url] Licensed under CC BY 4.0
 
 "Planet" by maewionn | [url]https://opengameart.org/users/maewionn[/url] Licensed under CC BY-SA 3.0
 
@@ -10,11 +14,9 @@ Asteroids by Cmdr G [url]https://opengameart.org/users/cmdr-g[/url] Licensed und
 
 Parallax star background by LuminousDragonGames [url]https://opengameart.org/users/luminousdragongames[/url] licensed under public domain
 
-Code 100% custom made, licensed under GPL v3.0, made by Jean-cedric "Kane Thornwyrd" Therond
+Code & Music & SFX 1 & ships by Jean-cedric "Kane Thornwyrd" Thérond licensed under GPL v3.0
 
 Using GODOT 3.1.1 [url]https://godotengine.org/[/url] licensed under the MIT License
-
-
 
 
 

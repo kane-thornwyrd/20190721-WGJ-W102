@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/guiluk.spritesheet.png-94ffaea1a933794c4c4facaf7e51bd65.stex"
+path="res://.import/gunmanEnd1o2.png-df6ab074cbc86edc562d9e4065d551a8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/graphic/guiluk.spritesheet.png"
-dest_files=[ "res://.import/guiluk.spritesheet.png-94ffaea1a933794c4c4facaf7e51bd65.stex" ]
+source_file="res://assets/graphic/gunmanEnd1o2.png"
+dest_files=[ "res://.import/gunmanEnd1o2.png-df6ab074cbc86edc562d9e4065d551a8.stex" ]
 
 [params]
 

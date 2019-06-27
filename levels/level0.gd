@@ -2,11 +2,14 @@ extends Level
 class_name Level0
 
 func setup() -> void:
-  var first_wave:SineAttackFormation = sine_attack_formation.instance()
-  first_wave.seat_number = 10
-  first_wave.enemy_types = [
-    Level.ENEMY_TYPES.BEHOLDER
-  ]
-  first_wave.setup()
 
-  formations.append(first_wave)
+# warning-ignore:unused_variable
+  for i in range(10):
+    var wave:Formation = sine_attack_formation.instance()
+    wave.seat_number = 10
+    wave.enemy_types = [
+      Level.ENEMY_TYPES.BEHOLDER
+    ]
+    wave.setup()
+
+    formations.append(wave)

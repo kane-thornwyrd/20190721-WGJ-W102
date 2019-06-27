@@ -34,7 +34,6 @@ rect = Rect2( -40, -40, 80, 80 )
 
 [node name="audio_hit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
-attenuation = 0.353553
 bus = "sfx"
 
 [node name="audio_shoot" type="AudioStreamPlayer2D" parent="."]

@@ -47,7 +47,6 @@ scale = Vector2( 2, 2 )
 position = Vector2( -59.175, -13.2317 )
 rotation = -1.5708
 frames = SubResource( 2 )
-frame = 1
 playing = true
 
 [node name="143" type="Sprite" parent="."]
@@ -96,7 +95,7 @@ texture = ExtResource( 9 )
 position = Vector2( -4.76837e-06, -0.231109 )
 rotation = -1.5708
 amplitude = 1.0
-frequency = 10.0
+frequency = 3.0
 property_name = "offset"
 
 [node name="shield" type="AnimatedSprite" parent="."]

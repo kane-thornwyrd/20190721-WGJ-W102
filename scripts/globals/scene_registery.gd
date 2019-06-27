@@ -24,6 +24,6 @@ func _move() -> void:
     print("Tried to navigate to unknown scene \"%s\"" % _to_scene_name)
     self.get_tree().quit()
     return
-  assert self.get_tree().change_scene(scene.resource_path) == 0
+  self.get_tree().change_scene(scene.resource_path)
 
 

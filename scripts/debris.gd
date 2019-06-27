@@ -9,8 +9,8 @@ export var sprite_path:NodePath = "sprite"
 onready var sprite:AnimatedSprite = get_node(sprite_path)
 
 func _ready() -> void:
-  assert sprite.connect("ready", sprite, "set_sprite_frames", [sprite_frames]) == 0
-  assert sprite.connect("ready", sprite, "play") == 0
+  sprite.connect("ready", sprite, "set_sprite_frames", [sprite_frames])
+  sprite.connect("ready", sprite, "play")
 
 func _process(delta: float) -> void:
   if Engine.editor_hint:

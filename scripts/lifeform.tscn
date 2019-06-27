@@ -1,7 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scripts/lifeform.gd" type="Script" id=1]
 [ext_resource path="res://assets/fx/explosion4_spriteframes.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://assets/sounds/exploded.ogg" type="AudioStream" id=3]
+[ext_resource path="res://assets/sounds/powerup.ogg" type="AudioStream" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
 
@@ -22,7 +24,7 @@ tracks/0/keys = {
 "values": [ Color( 0, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 0, 0, 0, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=10]
 resource_name = "damage_boost"
 length = 0.1
 step = 0.01
@@ -39,7 +41,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=11]
 resource_name = "rest"
 length = 0.1
 tracks/0/type = "value"
@@ -56,8 +58,8 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0, 0.314465, 1 )
-colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 0, 1, 0.419608, 0, 0, 0 )
+offsets = PoolRealArray( 0, 0.27044, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 0, 1, 1, 0, 0, 0 )
 
 [sub_resource type="GradientTexture" id=6]
 gradient = SubResource( 5 )
@@ -72,9 +74,8 @@ curve = SubResource( 7 )
 flag_disable_z = true
 spread = 180.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 200.0
-initial_velocity_random = 0.36
-angular_velocity = 100.0
+initial_velocity = 100.0
+initial_velocity_random = 0.44
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 scale = 10.0
@@ -95,21 +96,31 @@ wait_time = 0.17
 
 [node name="damage_effects" type="AnimationPlayer" parent="."]
 anims/damage = SubResource( 2 )
-anims/damage_boost = SubResource( 3 )
-anims/rest = SubResource( 4 )
+anims/damage_boost = SubResource( 10 )
+anims/rest = SubResource( 11 )
 
 [node name="damage_boost_timer" type="Timer" parent="."]
 
-[node name="puffs" type="Particles2D" parent="."]
-visible = false
-emitting = false
-amount = 10
-lifetime = 0.5
-one_shot = true
-explosiveness = 1.0
-randomness = 1.0
-process_material = SubResource( 9 )
-
 [node name="explosion" type="AnimatedSprite" parent="."]
 visible = false
+scale = Vector2( 0.5, 0.5 )
 frames = ExtResource( 2 )
+frame = 5
+playing = true
+
+[node name="puffs" type="Particles2D" parent="."]
+visible = false
+amount = 50
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2( -200, -200, 400, 400 )
+process_material = SubResource( 9 )
+
+[node name="explosion_sfx" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 3 )
+attenuation = 1.1487
+bus = "sfx"
+
+[node name="powerup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -13.116

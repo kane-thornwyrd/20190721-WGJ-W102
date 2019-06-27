@@ -35,7 +35,7 @@ var credits:String
 
 func _init() -> void:
   var credit_file = File.new()
-  assert credit_file.open(\"res://credits.txt\", File.READ) == 0
+  credit_file.open(\"res://credits.txt\", File.READ)
   credits = credit_file.get_as_text()
   self.bbcode_text = credits
 

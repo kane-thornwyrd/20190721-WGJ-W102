@@ -1,24 +1,56 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/enemies/enemy.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/beholder/beholder.gd" type="Script" id=2]
-[ext_resource path="res://scripts/bullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/enemy_bullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/enemies/beholder/beholder_body.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 37.6594, 17.2391 )
 
+[sub_resource type="Animation" id=3]
+resource_name = "damage_boost"
+length = 0.1
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.02, 0.04, 0.06, 0.08, 0.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "rest"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("body:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
 [node name="Beholder" index="0" groups=[
-"destroyable",
+"baddies",
 ] instance=ExtResource( 1 )]
 position = Vector2( 3.87708, 1.29236 )
 script = ExtResource( 2 )
-recoil = 2.0
 max_health = 10.0
 bullet_scene = ExtResource( 3 )
 speed = 500
 rotation_speed = 10.0
-detection_radius = 800.0
+detection_radius = 2000.0
 turret_speed = 10.0
 
 [node name="collision" parent="." index="0"]
@@ -26,16 +58,26 @@ position = Vector2( 13.2296, -0.568802 )
 shape = SubResource( 1 )
 
 [node name="muzzle" parent="." index="1"]
-position = Vector2( 40.8763, 0.368275 )
+position = Vector2( 129.518, -2.14045 )
+rotation = 3.14159
 
 [node name="recoil_timer" parent="." index="2"]
 wait_time = 1.0
 
+[node name="damage_effects" parent="." index="3"]
+anims/damage_boost = SubResource( 3 )
+anims/rest = SubResource( 4 )
+
 [node name="body" parent="." index="6" instance=ExtResource( 4 )]
 
-[node name="puffs" parent="." index="7"]
-visible = true
+[node name="explosion" parent="." index="7"]
+scale = Vector2( 1, 1 )
+frame = 2
 
-[node name="explosion" parent="." index="8"]
-frame = 3
-playing = true
+[node name="puffs" parent="." index="8"]
+visible = true
+emitting = false
+amount = 10
+lifetime = 0.5
+one_shot = true
+visibility_rect = Rect2( -100, -100, 200, 200 )

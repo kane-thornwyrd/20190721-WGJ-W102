@@ -35,9 +35,10 @@ func load_level() -> void:
   var level:Level = levels[level_number].instance()
   if !prev_level:
     prev_level = level
-    assert level.connect("win", self, "_on_level_win") == 0
-    assert level.connect("lose", self, "_on_level_lose") == 0
-    assert level.connect("player_available", self, "_bind_player_and_healthbar", [$gui/Healthbar]) == 0
+    level.connect("win", self, "_on_level_win")
+    level.connect("lose", self, "_on_level_lose")
+    level.connect("player_available", self, "_bind_player_and_healthbar", [$gui/Healthbar])
+
   level_container.add_child(prev_level)
   prev_level.raise()
   print_debug("LOADING Level%s" % level_number)
@@ -48,7 +49,6 @@ func _bind_player_and_healthbar(player:Player, healthbar:Healthbar) -> void:
   healthbar.player = player
 
 func _disappear_mofo() -> void :
-  prev_level.position += Vector2(0, -10000)
   prev_level.disconnect("win", self, "_on_level_win")
   prev_level.disconnect("lose", self, "_on_level_lose")
   prev_level.disconnect("player_available", self, "_bind_player_and_healthbar")
