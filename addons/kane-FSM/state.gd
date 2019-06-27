@@ -2,6 +2,7 @@ extends Node
 class_name State
 
 var parent:Node
+var _parent_wr:WeakRef
 var states:Dictionary
 var state_change:FuncRef
 # warning-ignore:unused_class_variable
@@ -12,6 +13,7 @@ func _init() -> void:
 
 func set_parent(parent:Node) -> State:
   self.parent = parent
+  _parent_wr = weakref(parent)
   return self
 
 func set_states(s:Dictionary) -> State:
