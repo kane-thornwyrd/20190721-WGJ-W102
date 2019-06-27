@@ -52,6 +52,7 @@ func _physics_process(delta:float):
 func spawn_puffs(position:Vector2) -> void:
   var tmp_puffs:Particles2D = puffs.duplicate()
   add_child(tmp_puffs)
+  tmp_puffs.show()
   tmp_puffs.global_position = position
   tmp_puffs.emitting = true
   yield(get_tree().create_timer(2.0), "timeout")
@@ -80,10 +81,9 @@ func heal(amount:float) -> void:
   damage_effects.play("heal")
   damage_effects.queue("rest")
 
-func _set_health(amount:float) -> void:
+func _set_health(new_health:float) -> void:
   var prev_health:float = health
-  health = clamp(health - amount, 0.0, max_health)
-  print_debug(health)
+  health = clamp(new_health, 0.0, max_health)
   if prev_health != health  or health == 0.0:
     emit_signal("health_changed", health, max_health)
     if health <= 0.0:
@@ -94,13 +94,13 @@ func _set_max_health(new_max_health:float) -> void:
   max_health = new_max_health
 
 func kill() -> void:
-  print_debug("LOL DIE !")
   emit_signal("dead")
   alive = false
   control_paused = true
   explosion.show()
   explosion.play()
-  yield(get_tree().create_timer(2.0), "timeout")
+  $body.hide()
+  yield(get_tree().create_timer(0.5), "timeout")
   queue_free()
 
 func shoot() -> void:

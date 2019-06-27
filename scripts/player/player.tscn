@@ -5,10 +5,10 @@
 [ext_resource path="res://scripts/player/player_fsm.gd" type="Script" id=3]
 [ext_resource path="res://scripts/player/body.tscn" type="PackedScene" id=4]
 
-[sub_resource type="RectangleShape2D" id=10]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 59.0603, 37.7559 )
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=2]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -47,7 +47,7 @@ tracks/2/keys = {
 "values": [ 90.0 ]
 }
 
-[sub_resource type="Animation" id=12]
+[sub_resource type="Animation" id=3]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -86,7 +86,7 @@ tracks/2/keys = {
 "values": [ 0.0 ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=4]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -125,7 +125,7 @@ tracks/2/keys = {
 "values": [ 45.0 ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -164,7 +164,7 @@ tracks/2/keys = {
 "values": [ -45.0 ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=6]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -203,7 +203,7 @@ tracks/2/keys = {
 "values": [ 180.0 ]
 }
 
-[sub_resource type="Animation" id=16]
+[sub_resource type="Animation" id=7]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -242,7 +242,7 @@ tracks/2/keys = {
 "values": [ 135.0 ]
 }
 
-[sub_resource type="Animation" id=17]
+[sub_resource type="Animation" id=8]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("muzzle:position")
@@ -322,35 +322,37 @@ tracks/2/keys = {
 
 [node name="Player" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
+recoil = 0.2
 speed = 800
 rotation_speed = 2.0
 
 [node name="collision" parent="." index="0"]
-shape = SubResource( 10 )
+shape = SubResource( 1 )
 
-[node name="damage_boost_timer" parent="." index="4"]
-one_shot = true
-
-[node name="animation_player" type="AnimationPlayer" parent="." index="5"]
-anims/fire_e = SubResource( 11 )
-anims/fire_n = SubResource( 12 )
-anims/fire_ne = SubResource( 13 )
-anims/fire_nw = SubResource( 14 )
-anims/fire_s = SubResource( 15 )
-anims/fire_se = SubResource( 16 )
-anims/fire_sw = SubResource( 17 )
+[node name="animation_player" type="AnimationPlayer" parent="." index="4"]
+anims/fire_e = SubResource( 2 )
+anims/fire_n = SubResource( 3 )
+anims/fire_ne = SubResource( 4 )
+anims/fire_nw = SubResource( 5 )
+anims/fire_s = SubResource( 6 )
+anims/fire_se = SubResource( 7 )
+anims/fire_sw = SubResource( 8 )
 anims/fire_w = SubResource( 9 )
 
-[node name="PlayerFSM" type="Node" parent="." index="6"]
+[node name="PlayerFSM" type="Node" parent="." index="5"]
 script = ExtResource( 3 )
 
-[node name="intro_timer" type="Timer" parent="." index="7"]
+[node name="body" parent="." index="6" instance=ExtResource( 4 )]
+
+[node name="damage_boost_timer" parent="." index="7"]
+wait_time = 2.0
 one_shot = true
 
-[node name="intro_step_timer" type="Timer" parent="." index="9"]
-one_shot = true
-
-[node name="explosion" parent="." index="10"]
+[node name="explosion" parent="." index="9"]
 frame = 7
 
-[node name="body" parent="." index="11" instance=ExtResource( 4 )]
+[node name="intro_timer" type="Timer" parent="." index="10"]
+one_shot = true
+
+[node name="intro_step_timer" type="Timer" parent="." index="11"]
+one_shot = true

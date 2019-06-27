@@ -6,7 +6,7 @@
 [ext_resource path="res://scripts/enemies/beholder/beholder_body.tscn" type="PackedScene" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 75.7411, 22.9437 )
+extents = Vector2( 37.6594, 17.2391 )
 
 [node name="Beholder" index="0" groups=[
 "destroyable",
@@ -14,12 +14,15 @@ extents = Vector2( 75.7411, 22.9437 )
 position = Vector2( 3.87708, 1.29236 )
 script = ExtResource( 2 )
 recoil = 2.0
+max_health = 10.0
 bullet_scene = ExtResource( 3 )
 speed = 500
-rotation_speed = 1.0
+rotation_speed = 10.0
+detection_radius = 800.0
+turret_speed = 10.0
 
 [node name="collision" parent="." index="0"]
-position = Vector2( 32, 0 )
+position = Vector2( 13.2296, -0.568802 )
 shape = SubResource( 1 )
 
 [node name="muzzle" parent="." index="1"]
@@ -28,11 +31,11 @@ position = Vector2( 40.8763, 0.368275 )
 [node name="recoil_timer" parent="." index="2"]
 wait_time = 1.0
 
-[node name="puffs" parent="." index="6"]
+[node name="body" parent="." index="6" instance=ExtResource( 4 )]
+
+[node name="puffs" parent="." index="7"]
 visible = true
 
-[node name="explosion" parent="." index="7"]
-frame = 5
+[node name="explosion" parent="." index="8"]
+frame = 3
 playing = true
-
-[node name="body" parent="." index="8" instance=ExtResource( 4 )]
