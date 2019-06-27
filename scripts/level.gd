@@ -4,6 +4,7 @@ class_name Level
 # warning-ignore:unused_class_variable
 var Formation = preload("res://scripts/enemies/formation.gd")
 var Player = preload("res://scripts/player/player.tscn")
+# warning-ignore:unused_class_variable
 var sine_attack_formation:PackedScene = load("res://scripts/enemies/sine_attack_formation.tscn")
 
 const ENEMIES = [
@@ -44,11 +45,11 @@ func initialize() -> void:
   tween_entry.interpolate_property(tractor, "unit_offset", 0, 1, entry_duration, Tween.TRANS_QUAD, Tween.EASE_OUT)
   tween_entry.start()
 
-  setup(player)
+  setup()
   tween_maker()
   start_waves()
 
-func setup(player:Player) -> void: pass;
+func setup() -> void: pass;
 
 func tween_maker() -> void:
 
@@ -59,11 +60,11 @@ func tween_maker() -> void:
     current_formation.duration = _dur
     var tw:Tween = Tween.new()
     tw.repeat = true
-    tw.interpolate_property(
+    assert tw.interpolate_property(
       current_formation, "unit_offset", 0, 1,
       _dur, Tween.TRANS_SINE, Tween.EASE_IN_OUT
     )
-    tw.connect("tween_all_completed", current_formation, "queue_free")
+    assert tw.connect("tween_all_completed", current_formation, "queue_free") == 0
     current_formation.tween_inside = tw
     var _dur_enemy:float = _dur / float(current_formation.get_children().size())
     for j in range(current_formation.get_children().size()):
@@ -72,7 +73,7 @@ func tween_maker() -> void:
       var cur_seat_offset:float = j * _unit_offset_part
       var tw2:Tween = Tween.new()
       tw2.repeat = true
-      tw2.interpolate_property(
+      assert tw2.interpolate_property(
         cur_seat, "unit_offset", cur_seat_offset, 1 + cur_seat_offset,
         _dur_enemy, 0, 0
       )
@@ -91,9 +92,11 @@ func start_waves() -> void:
     var current_formation:Formation = formations[i]
     assert current_formation.tween_inside.start()
     for j in range(current_formation.get_children().size()):
-      var _tween_maybe = current_formation.get_child(j).get_child(1)
-      if _tween_maybe is Tween:
-        assert _tween_maybe.start()
+      var current_seat = current_formation.get_child(j)
+      if current_seat.get_children().size() > 0:
+        var _tween_maybe = current_seat.get_child(1)
+        if _tween_maybe is Tween:
+          assert _tween_maybe.start()
 
 
 

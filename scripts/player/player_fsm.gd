@@ -30,10 +30,9 @@ func _ready() -> void:
   self.next_state = self.states.fire_e
   self.call_deferred("set_state", self.states.fire_e)
 
+# warning-ignore:unused_argument
 func _state_logic(delta: float) -> void:
   states[state.name].logic()
-
-  parent._apply_velocity(delta)
 
 func _get_transition() -> State:
   var nxt_state = states[state.name].transitioning()
